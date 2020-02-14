@@ -5,7 +5,7 @@ namespace pozitronik\references\widgets\reference_select;
 
 use pozitronik\core\interfaces\reference\ReferenceInterface;
 use pozitronik\helpers\ArrayHelper;
-use app\helpers\IconsHelper;
+use pozitronik\helpers\IconsHelper;
 use pozitronik\references\ReferencesModule;
 use kartik\select2\Select2;
 use pozitronik\helpers\ReflectionHelper;

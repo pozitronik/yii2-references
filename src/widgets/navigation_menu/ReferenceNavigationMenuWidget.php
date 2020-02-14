@@ -3,11 +3,11 @@ declare(strict_types = 1);
 
 namespace pozitronik\references\widgets\navigation_menu;
 
-use app\helpers\IconsHelper;
+use pozitronik\helpers\IconsHelper;
 use app\modules\history\HistoryModule;
 use pozitronik\references\models\Reference;
 use pozitronik\references\ReferencesModule;
-use app\widgets\navigation_menu\BaseNavigationMenuWidget;
+use pozitronik\widgets\BaseNavigationMenuWidget;
 use Throwable;
 use yii\base\InvalidConfigException;
 

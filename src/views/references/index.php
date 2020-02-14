@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-use app\helpers\IconsHelper;
+use pozitronik\helpers\IconsHelper;
 use pozitronik\references\ReferencesModule;
 use kartik\grid\GridView;
 use pozitronik\references\widgets\navigation_menu\ReferenceNavigationMenuWidget;
