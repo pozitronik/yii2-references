@@ -1,0 +1,9 @@
+.select-item {
+	overflow: hidden;
+	margin: -6px;
+	padding: 6px;
+}
+
+div.s2-input-group .input-group-btn a.btn {
+	width:40px;
+}
