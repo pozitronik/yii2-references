@@ -1,23 +1,27 @@
 {
-    "name": "pozitronik/yii2-references",
-    "description": "Key-value references model for Yii2",
-    "type": "yii2-extension",
-    "keywords": ["yii2","extension","refences"],
-    "license": "GPL-3.0",
-    "authors": [
-        {
-            "name": "Pavel Dubrovsky",
-            "email": "antikillerxxl@gmail.com"
-        }
-    ],
-    "require": {
-        "yiisoft/yii2": "~2.0.0",
-        "pozitronik/yii2-helpers": "dev-master",
-        "pozitronik/yii2-badgewidget": "dev-master"
-    },
-    "autoload": {
-        "psr-4": {
-            "pozitronik\\references\\": "src"
-        }
-    }
+	"name": "pozitronik/yii2-references",
+	"description": "Key-value references model for Yii2",
+	"type": "yii2-extension",
+	"keywords": [
+		"yii2",
+		"extension",
+		"refences"
+	],
+	"license": "GPL-3.0",
+	"authors": [
+		{
+			"name": "Pavel Dubrovsky",
+			"email": "antikillerxxl@gmail.com"
+		}
+	],
+	"require": {
+		"yiisoft/yii2": "~2.0.0",
+		"pozitronik/yii2-helpers": "dev-master",
+		"pozitronik/yii2-badgewidget": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"pozitronik\\references\\": "src"
+		}
+	}
 }
