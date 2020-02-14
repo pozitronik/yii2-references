@@ -3,12 +3,12 @@ declare(strict_types = 1);
 
 /**
  * @var View $this
- * @var RefGroupRelationTypes $model
+ * @var CustomisableReference $model
  * @var ActiveForm $form
  */
 
-use app\modules\groups\models\references\RefGroupRelationTypes;
 use kartik\color\ColorInput;
+use pozitronik\references\models\CustomisableReference;
 use yii\web\View;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
