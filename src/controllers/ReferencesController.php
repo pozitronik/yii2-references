@@ -3,12 +3,12 @@ declare(strict_types = 1);
 
 namespace pozitronik\references\controllers;
 
-use pozitronik\core\models\core_controller\WigetableController;
 use pozitronik\references\models\ReferenceLoader;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use Throwable;
 use yii\web\Response;
@@ -16,7 +16,7 @@ use yii\web\Response;
 /**
  * Управление всеми справочниками
  */
-class ReferencesController extends WigetableController {
+class ReferencesController extends Controller {
 	public $menuCaption = "<i class='fa fa-book'></i>Справочники";
 	public $menuIcon = "/img/admin/references.png";
 	public $orderWeight = 3;
