@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace pozitronik\references\widgets\navigation_menu;
 
 use pozitronik\helpers\IconsHelper;
-use app\modules\history\HistoryModule;
 use pozitronik\references\models\Reference;
 use pozitronik\references\ReferencesModule;
 use pozitronik\widgets\BaseNavigationMenuWidget;
@@ -34,11 +33,6 @@ class ReferenceNavigationMenuWidget extends BaseNavigationMenuWidget {
 			[
 				'label' => IconsHelper::update().'Изменение',
 				'url' => ReferencesModule::to(['references/update', 'id' => $this->model->id, 'class' => $this->className])
-			],
-			[
-				'menu' => true,
-				'label' => IconsHelper::history().'История изменений',
-				'url' => HistoryModule::to(['history/show', 'for' => $this->model->formName(), 'id' => $this->model->id])
 			],
 			[
 				'menu' => true,
