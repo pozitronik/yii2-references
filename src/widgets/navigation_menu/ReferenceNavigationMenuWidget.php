@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace pozitronik\references\widgets\navigation_menu;
 
-use pozitronik\helpers\IconsHelper;
 use pozitronik\references\models\Reference;
 use pozitronik\references\ReferencesModule;
 use pozitronik\widgets\BaseNavigationMenuWidget;
@@ -27,16 +26,16 @@ class ReferenceNavigationMenuWidget extends BaseNavigationMenuWidget {
 	public function run():string {
 		$this->_navigationItems = [
 			[
-				'label' => IconsHelper::view().'Просмотр',
+				'label' => "<i class='fa fa-eye ' title='Просмотр'></i>Просмотр",
 				'url' => ReferencesModule::to(['references/view', 'id' => $this->model->id, 'class' => $this->className])
 			],
 			[
-				'label' => IconsHelper::update().'Изменение',
+				'label' => "<i class='fa fa-edit ' title='Редактирование'></i>Изменение",
 				'url' => ReferencesModule::to(['references/update', 'id' => $this->model->id, 'class' => $this->className])
 			],
 			[
 				'menu' => true,
-				'label' => IconsHelper::delete().'Удаление',
+				'label' => "<i class='fa fa-trash-alt ' title='Удаление'></i>Удаление",
 				'url' => ReferencesModule::to(['references/delete', 'id' => $this->model->id, 'class' => $this->className]),
 				'linkOptions' => [
 					'title' => 'Удалить запись',

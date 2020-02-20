@@ -1,7 +1,6 @@
 <?php
 declare(strict_types = 1);
 
-use pozitronik\helpers\IconsHelper;
 use pozitronik\references\ReferencesModule;
 use kartik\grid\GridView;
 use pozitronik\references\widgets\navigation_menu\ReferenceNavigationMenuWidget;
@@ -23,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 $columns[] = [
 	'filter' => false,
-	'header' => IconsHelper::menu(),
+	'header' => "<i class='fa fa-bars'></i>",
 	'mergeHeader' => true,
 	'headerOptions' => [
 		'class' => 'skip-export kv-align-center kv-align-middle'
