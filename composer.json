@@ -17,9 +17,9 @@
 	"minimum-stability": "dev",
 	"require": {
 		"yiisoft/yii2": "~2.0.0",
-		"pozitronik/yii2-helpers": "*",
-		"pozitronik/yii2-badgewidget": "*",
-		"pozitronik/yii2-navigationwidget": "*"
+		"pozitronik/yii2-helpers": "dev-master",
+		"pozitronik/yii2-badgewidget": "dev-master",
+		"pozitronik/yii2-navigationwidget": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
