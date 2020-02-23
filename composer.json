@@ -1,13 +1,13 @@
 {
 	"name": "pozitronik/yii2-references",
 	"description": "Key-value references model for Yii2",
-	"type": "yii2-extension",
+	"type": "yii2-module",
 	"keywords": [
 		"yii2",
 		"extension",
 		"references"
 	],
-	"license": "GPL-3.0",
+	"license": "GPL-3.0-or-later",
 	"authors": [
 		{
 			"name": "Pavel Dubrovsky",
@@ -24,5 +24,24 @@
 		"psr-4": {
 			"pozitronik\\references\\": "src"
 		}
-	}
+	},
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://asset-packagist.org"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/pozitronik/yii2-helpers"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/pozitronik/yii2-badgewidget"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/pozitronik/yii2-navigationwidget"
+		}
+	]
+
 }
