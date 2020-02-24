@@ -37,6 +37,10 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/pozitronik/yii2-navigationwidget"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/pozitronik/yii2-cachedwidget"
 		}
 	]
 
