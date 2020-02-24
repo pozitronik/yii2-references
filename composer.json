@@ -16,9 +16,9 @@
 	],
 	"minimum-stability": "dev",
 	"require": {
-		"pozitronik/yii2-helpers": "dev-master",
-		"pozitronik/yii2-badgewidget": "dev-master",
-		"pozitronik/yii2-navigationwidget": "dev-master"
+		"pozitronik/yii2-helpers": "@dev",
+		"pozitronik/yii2-badgewidget": "@dev",
+		"pozitronik/yii2-navigationwidget": "@dev"
 	},
 	"autoload": {
 		"psr-4": {
