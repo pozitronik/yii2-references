@@ -15,7 +15,6 @@
 		}
 	],
 	"require": {
-		"yiisoft/yii2": "~2.0.0",
 		"pozitronik/yii2-helpers": "~1.0",
 		"pozitronik/yii2-badgewidget": "~1.0",
 		"pozitronik/yii2-navigationwidget": "~1.0"
@@ -26,10 +25,6 @@
 		}
 	},
 	"repositories": [
-		{
-			"type": "composer",
-			"url": "https://asset-packagist.org"
-		},
 		{
 			"type": "vcs",
 			"url": "https://github.com/pozitronik/yii2-helpers"
