@@ -18,7 +18,7 @@
 	"require": {
 		"pozitronik/yii2-helpers": "~1.0",
 		"pozitronik/yii2-badgewidget": "~1.0",
-		"pozitronik/yii2-navigationwidget": "~1.0"
+		"pozitronik/yii2-navigationwidget": "dev-master"
 	},
 	"autoload": {
 		"psr-4": {
