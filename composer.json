@@ -29,14 +29,6 @@
 	"repositories": [
 		{
 			"type": "vcs",
-			"url": "https://github.com/pozitronik/yii2-core-tools"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/pozitronik/yii2-helpers"
-		},
-		{
-			"type": "vcs",
 			"url": "https://github.com/pozitronik/yii2-badgewidget"
 		},
 		{
