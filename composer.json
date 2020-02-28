@@ -20,7 +20,7 @@
 		"pozitronik/yii2-helpers": "*",
 		"pozitronik/yii2-badgewidget": "*",
 		"pozitronik/yii2-navigationwidget": "*",
-		"pozitronik/yii2-selectmodelwidget ": "*",
+		"pozitronik/yii2-selectmodelwidget": "*",
 		"kartik-v/yii2-widget-colorinput": "*",
 		"kartik-v/yii2-grid": "*",
 		"kartik-v/yii2-widget-select2": "*",
