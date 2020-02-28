@@ -25,20 +25,5 @@
 		"psr-4": {
 			"pozitronik\\references\\": "src"
 		}
-	},
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/pozitronik/yii2-badgewidget"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/pozitronik/yii2-navigationwidget"
-		},
-		{
-			"type": "vcs",
-			"url": "https://github.com/pozitronik/yii2-cachedwidget"
-		}
-	]
-
+	}
 }
