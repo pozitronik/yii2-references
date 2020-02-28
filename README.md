@@ -1,37 +1,48 @@
-Yii2-References
-===========================
-Модель справочников для Yii2
+Yii2-references
+===============
+Powerful key-value references module for Yii2. 
 
 Installation
 ------------
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
-
-
-Add
+Run
 
 ```
-{
-	"type": "vcs",
-	"url": "https://github.com/pozitronik/yii2-references"
-} 
-```
-
-to the repositories section of your `composer.json` file.
-
-Either run
-
-```
-php composer.phar require --prefer-dist pozitronik/yii2-references "*"
+php composer.phar require pozitronik/yii2-references "dev-master"
 ```
 
 or add
 
 ```
-"pozitronik/yii2-references": "*"
+"pozitronik/yii2-references": "dev-master"
 ```
 
 to the require section of your `composer.json` file.
+
+Module Setup
+------------
+
+```php
+	'modules' => [
+		'references' => [
+			'class' => pozitronik\references\ReferencesModule::class
+		],
+    ];
+```
+
+After setup main module action can be accessible as 
+
+```
+your-app/web/index.php?r=references
+```
+
+by default (may differ due to yours urlManager config).
+
+Requirements
+------------
+
+Yii2,
+PHP >= 7.2.0
 
 
 Usage
