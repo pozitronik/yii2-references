@@ -37,10 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
 					'value' => static function(Reference $referenceModel) {
 						return null !== $referenceModel->pluginId?PluginsSupport::GetName($referenceModel->pluginId):'Базовый';
 					}
-				],
-				[
-					'attribute' => 'menuIcon',
-					'format' => 'raw'
 				]
 			]
 		]) ?>

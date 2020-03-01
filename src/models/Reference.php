@@ -44,7 +44,6 @@ use RuntimeException;
 class Reference extends ActiveRecord implements ReferenceInterface {
 	use ARExtended;
 	public $menuCaption = "Справочник";
-	public $menuIcon = "/img/admin/references.png";
 	/*	Массив, перечисляющий имена атрибутов, которые должны отдаваться в dataOptions
 		Имя может быть строковое (если название атрибута совпадает с именем data-атрибута, либо массивом
 		формата ['имя data-атрибута' => 'атрибут модели']

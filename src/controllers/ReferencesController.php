@@ -17,11 +17,6 @@ use yii\web\Response;
  * Управление всеми справочниками
  */
 class ReferencesController extends Controller {
-	public $menuCaption = "<i class='fa fa-book'></i>Справочники";
-	public $menuIcon = "/img/admin/references.png";
-	public $orderWeight = 3;
-	public $defaultRoute = 'references/references';
-
 	/**
 	 * @param string|null $class имя класса справочника
 	 * @return mixed
