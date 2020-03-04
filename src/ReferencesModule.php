@@ -4,8 +4,7 @@ declare(strict_types = 1);
 namespace pozitronik\references;
 
 use pozitronik\core\models\core_module\CoreModule;
-
-/** @noinspection EmptyClassInspection */
+use Yii;
 
 /**
  * Class ReferencesModule
@@ -13,4 +12,10 @@ use pozitronik\core\models\core_module\CoreModule;
  */
 class ReferencesModule extends CoreModule {
 
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getControllerPath() {
+		return Yii::getAlias('@vendor/pozitronik/yii2-references/src/controllers');
+	}
 }
