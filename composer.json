@@ -26,6 +26,9 @@
 		"kartik-v/yii2-widget-select2": "*",
 		"kartik-v/yii2-widget-depdrop": "*"
 	},
+	"require-dev": {
+		"yiisoft/yii2": "*"
+	},
 	"autoload": {
 		"psr-4": {
 			"pozitronik\\references\\": "src"
