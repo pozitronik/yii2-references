@@ -40,7 +40,7 @@ class ReferencesController extends Controller {
 			'sort' => $reference->searchSort
 		]);
 
-		return $this->render('index', [
+		return $this->render($reference->indexForm, [
 			'searchModel' => $reference,
 			'dataProvider' => $dataProvider,
 			'class' => $reference
