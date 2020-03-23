@@ -146,6 +146,24 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	}
 
 	/**
+	 * Ищет заданную вьюху сначала в каталоге вьюх класса, если там нет - вернёт дефолтную
+	 * @param string $viewName
+	 * @return string
+	 * @throws InvalidConfigException
+	 * @throws Throwable
+	 */
+	private function getViewPath(string $viewName):string {
+		$file_path = mb_strtolower($this->formName())."/{$viewName}.php";
+		if (null !== $plugin = ReferenceLoader::getReferenceByClassName($this->formName())->plugin) {//это справочник расширения
+			$form_alias = $plugin->alias.'/views/references/'.$file_path;
+			if (file_exists(Yii::getAlias($form_alias))) return $form_alias;
+
+		}
+
+		return file_exists(Yii::$app->controller->module->viewPath.DIRECTORY_SEPARATOR.Yii::$app->controller->id.DIRECTORY_SEPARATOR.$file_path)?$file_path:$viewName;
+	}
+
+	/**
 	 * Если в справочнике требуется редактировать поля, кроме обязательных, то функция возвращает путь к встраиваемой вьюхе, иначе к дефолтной
 	 *
 	 * Сначала проверяем наличие вьюхи в расширении (/module/views/{formName}/_form.php). Если её нет, то проверяем такой же путь в модуле справочников.
@@ -156,14 +174,17 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 * @throws Throwable
 	 */
 	public function getForm():string {
-		$file_path = mb_strtolower($this->formName()).'/_form.php';
-		if (null !== $plugin = ReferenceLoader::getReferenceByClassName($this->formName())->plugin) {//это справочник расширения
-			$form_alias = $plugin->alias.'/views/references/'.$file_path;
-			if (file_exists(Yii::getAlias($form_alias))) return $form_alias;
+		return $this->getViewPath('_form');
+	}
 
-		}
-
-		return file_exists(Yii::$app->controller->module->viewPath.DIRECTORY_SEPARATOR.Yii::$app->controller->id.DIRECTORY_SEPARATOR.$file_path)?$file_path:'_form';
+	/**
+	 * @inheritDoc
+	 * @return string
+	 * @throws InvalidConfigException
+	 * @throws Throwable
+	 */
+	public function getIndexForm():string {
+		return $this->getViewPath('index');
 	}
 
 	/**
