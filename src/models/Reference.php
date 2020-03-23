@@ -7,6 +7,7 @@ namespace pozitronik\references\models;
 use pozitronik\core\models\lcquery\LCQuery;
 use pozitronik\core\traits\ARExtended;
 use pozitronik\core\interfaces\reference\ReferenceInterface;
+use yii\data\DataProviderInterface;
 use yii\db\ActiveRecord;
 use pozitronik\core\models\core_module\CoreModule;
 use pozitronik\core\models\core_module\PluginsSupport;
@@ -311,4 +312,10 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 		return (null === $record = static::find()->where(['name' => $name])->one())?null:$record->id;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	public function getDataProvider():?DataProviderInterface {
+		return null;
+	}
 }

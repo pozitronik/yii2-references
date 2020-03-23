@@ -35,7 +35,7 @@ class ReferencesController extends Controller {
 		if (null === $reference = ReferenceLoader::getReferenceByClassName($class)) {
 			throw new InvalidConfigException("$class reference not found in configuration scope");
 		}
-		$dataProvider = new ActiveDataProvider([
+		$dataProvider = $reference->dataProvider??new ActiveDataProvider([
 			'query' => $reference->search(Yii::$app->request->queryParams),
 			'sort' => $reference->searchSort
 		]);
