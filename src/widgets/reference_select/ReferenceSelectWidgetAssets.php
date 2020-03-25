@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace pozitronik\references\widgets\reference_select;
 
 use yii\web\AssetBundle;
-use app\assets\AppAsset;
 
 /**
  * Class BaseReferenceSelectWidgetAssets
@@ -16,7 +15,6 @@ class ReferenceSelectWidgetAssets extends AssetBundle {
 	 * @inheritdoc
 	 */
 	public function init() {
-		$this->depends = [AppAsset::class];
 		$this->sourcePath = __DIR__.'/assets';
 		$this->css = ['css/reference_select.css'];
 		$this->js = ['js/reference_select.js'];
