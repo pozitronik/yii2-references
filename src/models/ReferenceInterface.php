@@ -9,7 +9,6 @@ use yii\db\ActiveQuery;
 /**
  * Интерфейс справочника
  *
- * @package app\models\references
  * @property integer id
  * @property string name
  * @property boolean deleted
@@ -22,6 +21,7 @@ use yii\db\ActiveQuery;
  * @property-read integer $usedCount
  * @property-read array $searchSort
  * @property-read DataProviderInterface|null $dataProvider
+ * @property null|string $moduleId
  */
 interface ReferenceInterface {
 
@@ -56,15 +56,15 @@ interface ReferenceInterface {
 	public function getIndexForm():string;
 
 	/**
-	 * Возвращает id раширения, добавившего справочник (null, если справочник базовый)
+	 * Возвращает id модуля, добавившего справочник (null, если справочник базовый)
 	 * @return string|null
 	 */
-	public function getPluginId():?string;
+	public function getModuleId():?string;
 
 	/**
 	 * @param string|null $pluginId
 	 */
-	public function setPluginId(?string $pluginId):void;
+	public function setModuleId(?string $pluginId):void;
 
 	/**
 	 * Поиск по справочнику
