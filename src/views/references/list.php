@@ -1,7 +1,6 @@
 <?php
 declare(strict_types = 1);
 
-use pozitronik\core\models\core_module\PluginsSupport;
 use kartik\grid\GridView;
 use yii\helpers\Html;
 use yii\data\ArrayDataProvider;
@@ -35,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				[
 					'label' => 'Модуль',
 					'value' => static function(Reference $referenceModel) {
-						return null !== $referenceModel->pluginId?PluginsSupport::GetName($referenceModel->pluginId):'Базовый';
+						return $referenceModel->moduleId??'Базовый';
 					}
 				]
 			]
