@@ -4,13 +4,13 @@ declare(strict_types = 1);
 
 namespace pozitronik\references\models;
 
-use pozitronik\core\models\lcquery\LCQuery;
+use pozitronik\core\helpers\ModuleHelper;
 use pozitronik\core\traits\ARExtended;
+use pozitronik\core\traits\ModuleExtended;
+use yii\base\Module;
 use yii\caching\TagDependency;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveRecord;
-use pozitronik\core\models\core_module\CoreModule;
-use pozitronik\core\models\core_module\PluginsSupport;
 use pozitronik\references\ReferencesModule;
 use pozitronik\widgets\BadgeWidget;
 use Throwable;
@@ -38,8 +38,9 @@ use RuntimeException;
  * @package app\models\references
  *
  * @property int $usedCount Количество объектов, использующих это значение справочника
- * @property null|string $pluginId Плагин, подключающий расширение
- * @property null|CoreModule $plugin
+ * @property null|string $moduleId Плагин, подключающий расширение
+ * @property null|Module $module
+ *
  *
  */
 class Reference extends ActiveRecord implements ReferenceInterface {
@@ -51,7 +52,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 		формата ['имя data-атрибута' => 'атрибут модели']
 	*/
 	protected $_dataAttributes = [];
-	protected $_pluginId;//deprecated
+	protected $_moduleId;
 
 	/**
 	 * @return string
@@ -73,14 +74,6 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 			[['name'], 'string', 'max' => 256],
 			[['value'], 'string', 'max' => 512]
 		];
-	}
-
-	/**
-	 * @return LCQuery
-	 */
-	public static function find():LCQuery {
-		return (new LCQuery(static::class))->cache(null, new TagDependency(['tags' => static::class.'::find']));
-
 	}
 
 	/**
@@ -167,8 +160,9 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 */
 	private function getViewPath(string $viewName):string {
 		$file_path = mb_strtolower($this->formName())."/{$viewName}.php";
-		if (null !== $plugin = ReferenceLoader::getReferenceByClassName($this->formName())->plugin) {//это справочник расширения
-			$form_alias = $plugin->alias.'/views/references/'.$file_path;
+		/** @var ModuleExtended $module */
+		if (null !== $module = ReferenceLoader::getReferenceByClassName($this->formName())->module) {//это справочник расширения
+			$form_alias = $module->alias.'/views/references/'.$file_path;
 			if (file_exists(Yii::getAlias($form_alias))) return $form_alias;
 
 		}
@@ -294,24 +288,24 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 * Возвращает имя раширения, добавившего справочник (null, если справочник базовый)
 	 * @return string|null
 	 */
-	public function getPluginId():?string {
-		return $this->_pluginId;
+	public function getModuleId():?string {
+		return $this->_moduleId;
 	}
 
 	/**
-	 * @param string|null $pluginId
+	 * @param string|null $moduleId
 	 */
-	public function setPluginId(?string $pluginId):void {
-		$this->_pluginId = $pluginId;
+	public function setModuleId(?string $moduleId):void {
+		$this->_moduleId = $moduleId;
 	}
 
 	/**
-	 * @return CoreModule|null
+	 * @return Module|null
 	 * @throws InvalidConfigException
 	 * @throws Throwable
 	 */
-	public function getPlugin():?CoreModule {
-		return (null === $this->pluginId)?null:PluginsSupport::GetPluginById($this->pluginId);
+	public function getModule():?Module {
+		return (null === $this->moduleId)?null:ModuleHelper::GetModuleById($this->moduleId);
 	}
 
 	/**
@@ -320,6 +314,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 * @return int|null
 	 */
 	public static function findId(string $name):?int {
+		/** @var self $record */
 		return (null === $record = static::find()->where(['name' => $name])->one())?null:$record->id;
 	}
 
