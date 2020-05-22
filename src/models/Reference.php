@@ -52,7 +52,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 		формата ['имя data-атрибута' => 'атрибут модели']
 	*/
 	protected $_dataAttributes = [];
-	protected $_pluginId;
+	protected $_pluginId;//deprecated
 
 	/**
 	 * @return string
@@ -87,7 +87,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function afterSave($insert, $changedAttributes) {
+	public function afterSave($insert, $changedAttributes):void {
 		parent::afterSave($insert, $changedAttributes);
 		$class = static::class;
 		TagDependency::invalidate(Yii::$app->cache, ["{$class}::find"]);
