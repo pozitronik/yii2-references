@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace pozitronik\references\models;
 
-use pozitronik\core\models\lcquery\LCQuery;
 use pozitronik\references\ReferencesModule;
 use pozitronik\widgets\BadgeWidget;
 use Throwable;
@@ -99,21 +98,6 @@ class CustomisableReference extends Reference {
 				'format' => 'raw'
 			]
 		];
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public static function flushCache():void {
-		$class = static::class;
-		$cacheNames = [
-			"{$class}MapData",
-			"{$class}DataOptions",
-			"{$class}ColorStyleOptions"
-		];
-		foreach ($cacheNames as $className) {
-			Yii::$app->cache->delete($className);
-		}
 	}
 
 	/**
