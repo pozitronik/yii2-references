@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace pozitronik\references\models;
 
 use pozitronik\helpers\ArrayHelper;
-use pozitronik\core\models\core_module\PluginsSupport;
 use pozitronik\helpers\ReflectionHelper;
 use ReflectionException;
 use Throwable;
@@ -17,12 +16,12 @@ use yii\base\UnknownClassException;
 
 /**
  * Class ReferenceLoader
- * @package app\modules\references
  *
  * @property Reference[] $list [$referenceClassName] => object Reference
  *
  */
 class ReferenceLoader extends Model {
+	use ReferenceTrait;
 	public const REFERENCES_DIRECTORY = '@app/models/references';
 
 	/**
@@ -45,8 +44,8 @@ class ReferenceLoader extends Model {
 				}
 			}
 		}
-		$pluginsReferences = PluginsSupport::GetAllReferences();//загрузить модульные модели референсов
-		return array_merge($baseReferences, $pluginsReferences);
+		$moduleReferences = self::GetAllReferences();//загрузить модульные модели референсов
+		return array_merge($baseReferences, $moduleReferences);
 	}
 
 	/**
