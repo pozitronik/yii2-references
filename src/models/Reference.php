@@ -6,7 +6,6 @@ namespace pozitronik\references\models;
 
 use pozitronik\core\models\lcquery\LCQuery;
 use pozitronik\core\traits\ARExtended;
-use pozitronik\core\interfaces\reference\ReferenceInterface;
 use yii\caching\TagDependency;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveRecord;
