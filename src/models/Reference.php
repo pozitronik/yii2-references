@@ -7,6 +7,7 @@ namespace pozitronik\references\models;
 use pozitronik\core\models\lcquery\LCQuery;
 use pozitronik\core\traits\ARExtended;
 use pozitronik\core\interfaces\reference\ReferenceInterface;
+use yii\caching\TagDependency;
 use yii\data\DataProviderInterface;
 use yii\db\ActiveRecord;
 use pozitronik\core\models\core_module\CoreModule;
@@ -44,6 +45,7 @@ use RuntimeException;
  */
 class Reference extends ActiveRecord implements ReferenceInterface {
 	use ARExtended;
+
 	public $menuCaption = "Справочник";
 	/*	Массив, перечисляющий имена атрибутов, которые должны отдаваться в dataOptions
 		Имя может быть строковое (если название атрибута совпадает с именем data-атрибута, либо массивом
@@ -78,7 +80,19 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 * @return LCQuery
 	 */
 	public static function find():LCQuery {
-		return new LCQuery(static::class);
+		return (new LCQuery(static::class))->cache(null, new TagDependency(['tags' => static::class.'::find']));
+
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function afterSave($insert, $changedAttributes) {
+		parent::afterSave($insert, $changedAttributes);
+		$class = static::class;
+		TagDependency::invalidate(Yii::$app->cache, ["{$class}::find"]);
+		TagDependency::invalidate(Yii::$app->cache, ["{$class}::MapData"]);
+		TagDependency::invalidate(Yii::$app->cache, ["{$class}::DataOptions"]);
 	}
 
 	/**
@@ -205,21 +219,13 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 * @inheritdoc
 	 */
 	public static function mapData(bool $sort = true):array {
-		return Yii::$app->cache->getOrSet(static::class."MapData".$sort, static function() use ($sort) {
+		return Yii::$app->cache->getOrSet(static::class."::MapData($sort)", static function() use ($sort) {
 			$data = ArrayHelper::map(self::find()->active()->all(), 'id', 'name');
 			if ($sort) {
 				asort($data);
 			}
 			return $data;
-		});
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public function afterSave($insert, $changedAttributes) {
-		parent::afterSave($insert, $changedAttributes);
-		self::flushCache();
+		}, null, new TagDependency(['tags' => static::class."::MapData"]));
 	}
 
 	/**
@@ -230,21 +236,6 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 */
 	public static function merge(int $fromId, int $toId):void {
 		throw new ErrorException('Метод merge не имеет реализации по умолчанию');
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public static function flushCache():void {
-		$class = static::class;
-		$cacheNames = [
-			"{$class}MapData1",
-			"{$class}MapData0",
-			"{$class}DataOptions"
-		];
-		foreach ($cacheNames as $className) {
-			Yii::$app->cache->delete($className);
-		}
 	}
 
 	/**
@@ -278,7 +269,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 * @return array
 	 */
 	public static function dataOptions():array {
-		return Yii::$app->cache->getOrSet(static::class."DataOptions", static function() {
+		return Yii::$app->cache->getOrSet(static::class."::DataOptions", static function() {
 			/** @var self[] $items */
 			$items = self::find()->active()->all();
 			$result = [];
@@ -297,7 +288,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 
 			}
 			return $result;
-		});
+		}, null, new TagDependency(['tags' => static::class."::DataOptions"]));
 	}
 
 	/**
