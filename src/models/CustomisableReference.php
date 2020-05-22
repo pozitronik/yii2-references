@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace pozitronik\references\models;
 
+use pozitronik\core\traits\ModuleExtended;
 use pozitronik\references\ReferencesModule;
 use pozitronik\widgets\BadgeWidget;
 use Throwable;
@@ -129,8 +130,9 @@ class CustomisableReference extends Reference {
 	 */
 	public function getForm():string {
 		$file_path = mb_strtolower($this->formName()).'/_form.php';
-		if (null !== $plugin = ReferenceLoader::getReferenceByClassName($this->formName())->plugin) {//это справочник расширения
-			$form_alias = $plugin->alias.'/views/references/'.$file_path;
+		/** @var ModuleExtended $module */
+		if (null !== $module = ReferenceLoader::getReferenceByClassName($this->formName())->module) {//это справочник расширения
+			$form_alias = $module->alias.'/views/references/'.$file_path;
 			if (file_exists(Yii::getAlias($form_alias))) return $form_alias;
 
 		}
