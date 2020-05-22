@@ -102,14 +102,6 @@ class CustomisableReference extends Reference {
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	public function afterSave($insert, $changedAttributes) {
-		parent::afterSave($insert, $changedAttributes);
-		self::flushCache();
-	}
-
-	/**
 	 * @inheritdoc
 	 */
 	public static function flushCache():void {
