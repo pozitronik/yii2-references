@@ -40,13 +40,6 @@ class CustomisableReference extends Reference {
 	}
 
 	/**
-	 * @return LCQuery
-	 */
-	public static function find():LCQuery {
-		return new LCQuery(static::class);
-	}
-
-	/**
 	 * @inheritdoc
 	 */
 	public function attributeLabels():array {
