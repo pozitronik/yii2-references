@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace pozitronik\references\widgets\reference_select;
 
-use pozitronik\core\interfaces\reference\ReferenceInterface;
 use pozitronik\helpers\ArrayHelper;
+use pozitronik\references\models\ReferenceInterface;
 use pozitronik\references\ReferencesModule;
 use kartik\select2\Select2;
 use pozitronik\helpers\ReflectionHelper;
@@ -16,9 +16,6 @@ use yii\web\JsExpression;
 
 /**
  * Виджет-выбиралка для любых справочников. Добавляет к Select2 стандартное для справочников форматирование данных.
- *
- * Class GroupSelectWidget
- * @package app\components\reference_select
  *
  * @property ReferenceInterface $referenceClass Модель справочника, к которой интегрируется виджет
  * @property bool $showEditAddon Включает кнопку перехода к редактированию справочника
