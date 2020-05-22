@@ -27,7 +27,7 @@ class ReferenceSelectWidget extends Select2 {
 	/**
 	 * Функция инициализации и нормализации свойств виджета
 	 */
-	public function init() {
+	public function init():void {
 		parent::init();
 		ReferenceSelectWidgetAssets::register($this->getView());
 	}

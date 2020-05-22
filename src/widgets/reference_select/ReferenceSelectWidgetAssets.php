@@ -14,7 +14,7 @@ class ReferenceSelectWidgetAssets extends AssetBundle {
 	/**
 	 * @inheritdoc
 	 */
-	public function init() {
+	public function init():void {
 		$this->sourcePath = __DIR__.'/assets';
 		$this->css = ['css/reference_select.css'];
 		$this->js = ['js/reference_select.js'];
