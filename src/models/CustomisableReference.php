@@ -9,6 +9,7 @@ use pozitronik\widgets\BadgeWidget;
 use Throwable;
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\caching\TagDependency;
 use yii\db\Expression;
 use yii\helpers\Html;
 
@@ -51,6 +52,16 @@ class CustomisableReference extends Reference {
 			'color' => 'Цвет фона',
 			'textcolor' => 'Цвет текста'
 		];
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function afterSave($insert, $changedAttributes):void {
+		parent::afterSave($insert, $changedAttributes);
+		$class = static::class;
+		TagDependency::invalidate(Yii::$app->cache, ["{$class}::ColorStyleOptions"]);
+		TagDependency::invalidate(Yii::$app->cache, ["{$class}::getStyle{$this->id}"]);
 	}
 
 	/**
@@ -106,7 +117,7 @@ class CustomisableReference extends Reference {
 	 * @return array
 	 */
 	public static function colorStyleOptions():array {
-		return Yii::$app->cache->getOrSet(static::class."ColorStyleOptions", static function() {
+		return Yii::$app->cache->getOrSet(static::class."::ColorStyleOptions", static function() {
 			$selection = self::find()->select(['id', new Expression('CONCAT ("background: " , IFNULL(color, "gray"), "; color: ", IFNULL(textcolor, "white")) AS style')])->active()->asArray()->all();
 			$result = [];
 			foreach ($selection as $key => $value) {
@@ -115,7 +126,7 @@ class CustomisableReference extends Reference {
 				];
 			}
 			return $result;
-		});
+		}, null, new TagDependency(['tags' => static::class."::ColorStyleOptions"]));
 	}
 
 	/**
@@ -162,10 +173,10 @@ class CustomisableReference extends Reference {
 	 */
 	public function getStyle():string {
 		$id = $this->id;
-		return Yii::$app->cache->getOrSet(static::class."getStyle{$this->id}", static function() use ($id) {
+		return Yii::$app->cache->getOrSet(static::class."::getStyle{$this->id}", static function() use ($id) {
 			$styleArray = self::find()->select(new Expression('CONCAT ("background: " , IFNULL(color, "gray"), "; color: ", IFNULL(textcolor, "white")) AS style'))->asArray()->where(['id' => $id])->one();
 			return $styleArray['style'];
-		});
+		}, null, new TagDependency(['tags' => static::class."::getStyle{$this->id}"]));
 	}
 
 	/**
