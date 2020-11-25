@@ -18,7 +18,7 @@ class ReferenceSelectWidgetAssets extends AssetBundle {
 		$this->sourcePath = __DIR__.'/assets';
 		$this->css = ['css/reference_select.css'];
 		$this->js = ['js/reference_select.js'];
-		$this->publishOptions = ['forceCopy' => YII_ENV_DEV];
+//		$this->publishOptions = ['forceCopy' => YII_ENV_DEV];
 		parent::init();
 	}
 }
