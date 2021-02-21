@@ -18,8 +18,9 @@ use yii\helpers\Html;
  * Расширение класса справочника с поддержкой настроек отображения
  * @package app\modules\references\models
  *
- * @property string $color -- html code in rgb(r,g,b) format
+ * @property null|string $color -- html code in rgb(r,g,b) format
  * @property string $textcolor -- css font options
+ * @property-read null|string $font
  * @property-read string $style -- css style (combined font/background colors). It is preferred property, it work much faster!
  */
 class CustomisableReference extends Reference {
@@ -161,7 +162,7 @@ class CustomisableReference extends Reference {
 	}
 
 	/**
-	 * @return string
+	 * @return null|string
 	 * @throws Throwable
 	 */
 	public function getFont():?string {
