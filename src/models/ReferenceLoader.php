@@ -22,7 +22,8 @@ use yii\base\UnknownClassException;
  */
 class ReferenceLoader extends Model {
 	use ReferenceTrait;
-	public const REFERENCES_DIRECTORY = '@app/models/references';
+
+	public const REFERENCES_DIRECTORY = '@app/models/references';//можно задать массивом алиасов
 
 	/**
 	 * @return Reference[]
@@ -32,8 +33,31 @@ class ReferenceLoader extends Model {
 	 * @throws UnknownClassException
 	 */
 	public static function getList():array {
+		$baseReferencesDir = ArrayHelper::getValue(Yii::$app->modules, 'references.params.baseDir', self::REFERENCES_DIRECTORY);
+		if (is_array($baseReferencesDir)) {
+			$baseReferences = [[]];
+			foreach ($baseReferencesDir as $referenceDir) {
+				$baseReferences[] = self::allDirReferences($referenceDir);
+			}
+			$baseReferences = array_merge(...$baseReferences);
+		} else {
+			$baseReferences = self::allDirReferences($baseReferencesDir);
+		}
+
+		$moduleReferences = self::GetAllReferences();//загрузить модульные модели референсов
+		return array_merge($baseReferences, $moduleReferences);
+	}
+
+	/**
+	 * @param string $referencesDir
+	 * @return Reference[]
+	 * @throws ReflectionException
+	 * @throws Throwable
+	 * @throws UnknownClassException
+	 */
+	private static function allDirReferences(string $referencesDir):array {
 		$baseReferences = [];
-		$baseReferencesDir = Yii::getAlias(ArrayHelper::getValue(Yii::$app->modules, 'references.params.baseDir', self::REFERENCES_DIRECTORY));
+		if (false === $baseReferencesDir = Yii::getAlias($referencesDir, false)) return $baseReferences;
 
 		if (file_exists($baseReferencesDir)) {//Загрузить базовые модели референсов
 			$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($baseReferencesDir), RecursiveIteratorIterator::SELF_FIRST);
@@ -44,8 +68,7 @@ class ReferenceLoader extends Model {
 				}
 			}
 		}
-		$moduleReferences = self::GetAllReferences();//загрузить модульные модели референсов
-		return array_merge($baseReferences, $moduleReferences);
+		return $baseReferences;
 	}
 
 	/**
