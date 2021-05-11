@@ -5,7 +5,7 @@ namespace pozitronik\references\widgets\navigation_menu;
 
 use pozitronik\references\models\Reference;
 use pozitronik\references\ReferencesModule;
-use pozitronik\widgets\BaseNavigationMenuWidget;
+use pozitronik\references\widgets\navigation_menu_base\BaseNavigationMenuWidget;
 use Throwable;
 use yii\base\InvalidConfigException;
 
