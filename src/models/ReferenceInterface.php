@@ -62,9 +62,9 @@ interface ReferenceInterface {
 	public function getModuleId():?string;
 
 	/**
-	 * @param string|null $pluginId
+	 * @param string|null $moduleId
 	 */
-	public function setModuleId(?string $pluginId):void;
+	public function setModuleId(?string $moduleId):void;
 
 	/**
 	 * Поиск по справочнику
