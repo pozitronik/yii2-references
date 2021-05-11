@@ -36,10 +36,10 @@ class RefDepDrop extends DepDrop {
 		if (empty($this->options['class'])) {
 			$this->options['class'] = 'form-control';
 		}
-		if (in_array($this->type, [self::TYPE_SELECT2, self::TYPE_REFERENCE_SELECT])) {
+		if (in_array($this->type, [self::TYPE_SELECT2, self::TYPE_REFERENCE_SELECT], true)) {
 			Config::checkDependency('select2\Select2', 'yii2-widget-select2', 'for dependent dropdown for Select2');
 		}
-		if (!in_array($this->type, [self::TYPE_SELECT2, self::TYPE_REFERENCE_SELECT]) && !empty($this->options['placeholder'])) {
+		if (!in_array($this->type, [self::TYPE_SELECT2, self::TYPE_REFERENCE_SELECT], true) && !empty($this->options['placeholder'])) {
 			$this->data = ['' => $this->options['placeholder']] + $this->data;
 		}
 		if (self::TYPE_REFERENCE_SELECT === $this->type && null === $this->referenceClass) {
@@ -56,7 +56,7 @@ class RefDepDrop extends DepDrop {
 		DepDropAsset::register($view)->addLanguage($this->language, 'depdrop_locale_');
 		DepDropExtAsset::register($view);
 		$this->registerPlugin($this->pluginName);
-		if (in_array($this->type, [self::TYPE_SELECT2, self::TYPE_REFERENCE_SELECT])) {
+		if (in_array($this->type, [self::TYPE_SELECT2, self::TYPE_REFERENCE_SELECT], true)) {
 			$loading = ArrayHelper::getValue($this->pluginOptions, 'loadingText', 'Loading ...');
 			$this->select2Options['data'] = $this->data;
 			$this->select2Options['options'] = $this->options;
