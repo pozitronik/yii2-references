@@ -21,21 +21,19 @@ $this->params['breadcrumbs'][] = ReferencesModule::breadcrumbItem('Справо�
 $this->params['breadcrumbs'][] = $this->title;
 
 $columns[] = [
-	[
-		'class' => ActionColumn::class,
-		'template' => '{edit}{view}{delete}',
-		'buttons' => [
-			'edit' => static function(string $url, Reference $model) use ($class) {
-				return Html::a('<i class="glyphicon glyphicon-edit"></i>', ReferencesModule::to(['references/view', 'id' => $model->id, 'class' => $class->formName()]));
-			},
-			'view' => static function(string $url, Reference $model) use ($class) {
-				return Html::a('<i class="glyphicon glyphicon-eye-open"></i>', ReferencesModule::to(['references/update', 'id' => $model->id, 'class' => $class->formName()]));
-			},
-			'delete' => static function(string $url, Reference $model) use ($class) {
-				return Html::a('<i class="glyphicon glyphicon-trash"></i>', ReferencesModule::to(['references/delete', 'id' => $model->id, 'class' => $class->formName()]));
-			},
-		],
-	]
+	'class' => ActionColumn::class,
+	'template' => '{edit}{view}{delete}',
+	'buttons' => [
+		'edit' => static function(string $url, Reference $model) use ($class) {
+			return Html::a('<i class="glyphicon glyphicon-edit"></i>', ReferencesModule::to(['references/view', 'id' => $model->id, 'class' => $class->formName()]));
+		},
+		'view' => static function(string $url, Reference $model) use ($class) {
+			return Html::a('<i class="glyphicon glyphicon-eye-open"></i>', ReferencesModule::to(['references/update', 'id' => $model->id, 'class' => $class->formName()]));
+		},
+		'delete' => static function(string $url, Reference $model) use ($class) {
+			return Html::a('<i class="glyphicon glyphicon-trash"></i>', ReferencesModule::to(['references/delete', 'id' => $model->id, 'class' => $class->formName()]));
+		},
+	],
 ];
 
 $columns = array_merge($columns, $class->columns);
