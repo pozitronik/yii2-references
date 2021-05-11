@@ -197,7 +197,11 @@ class CustomisableReference extends Reference {
 			$sortAttributes[] = is_array($rule[0])?$rule[0]:[$rule[0]];
 		}
 		$sortAttributes = array_unique(array_merge(...$sortAttributes));
-		unset($sortAttributes[array_search('usedCount', $sortAttributes)]);//сортировка по виртуальному атрибуту не нужна
+		if (false !== $virtualAttributeIndex = array_search('usedCount', $sortAttributes, true)) {
+			/** @var int|string $virtualAttributeIndex */
+			unset($sortAttributes[$virtualAttributeIndex]);//сортировка по виртуальному атрибуту не нужна
+		}
+
 		return [
 			'defaultOrder' => [
 				'id' => SORT_ASC
