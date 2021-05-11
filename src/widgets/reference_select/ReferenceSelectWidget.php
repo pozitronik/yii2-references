@@ -52,7 +52,7 @@ class ReferenceSelectWidget extends Select2 {
 			if ($this->showEditAddon) {
 				$this->addon = [
 					'append' => [
-						'content' => ReferencesModule::a("<i class='fa fa-edit ' title='Редактирование'></i>", ['references/index', 'class' => ReflectionHelper::GetClassShortName((string)$this->referenceClass)], ['class' => 'btn btn-default']),
+						'content' => ReferencesModule::a("<i class='fa fa-edit ' title='Редактирование'></i>", ['references/index', 'class' => ReflectionHelper::GetClassShortName(get_class($this->referenceClass))], ['class' => 'btn btn-default']),
 						'asButton' => true
 					]
 				];
