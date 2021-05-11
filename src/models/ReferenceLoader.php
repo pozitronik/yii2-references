@@ -33,7 +33,7 @@ class ReferenceLoader extends Model {
 	 */
 	public static function getList():array {
 		$baseReferences = [];
-		$baseReferencesDir = Yii::getAlias(self::REFERENCES_DIRECTORY);
+		$baseReferencesDir = Yii::getAlias(ArrayHelper::getValue(Yii::$app->modules, 'references.params.baseDir', self::REFERENCES_DIRECTORY));
 
 		if (file_exists($baseReferencesDir)) {//Загрузить базовые модели референсов
 			$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($baseReferencesDir), RecursiveIteratorIterator::SELF_FIRST);
