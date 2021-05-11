@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 use pozitronik\references\ReferencesModule;
 use kartik\grid\GridView;
-use pozitronik\references\widgets\navigation_menu\ReferenceNavigationMenuWidget;
+use yii\grid\ActionColumn;
 use yii\helpers\Html;
 use yii\data\ActiveDataProvider;
 use yii\web\View;
@@ -21,24 +21,21 @@ $this->params['breadcrumbs'][] = ReferencesModule::breadcrumbItem('Справо�
 $this->params['breadcrumbs'][] = $this->title;
 
 $columns[] = [
-	'filter' => false,
-	'header' => "<i class='fa fa-bars'></i>",
-	'mergeHeader' => true,
-	'headerOptions' => [
-		'class' => 'skip-export kv-align-center kv-align-middle'
-	],
-	'contentOptions' => [
-		'style' => 'width:50px',
-		'class' => 'skip-export kv-align-center kv-align-middle'
-	],
-	'value' => static function(Reference $model) use ($class) {
-		return ReferenceNavigationMenuWidget::widget([
-			'model' => $model,
-			'className' => $class->formName(),
-			'mode' => ReferenceNavigationMenuWidget::MODE_ACTION_COLUMN_MENU
-		]);
-	},
-	'format' => 'raw'
+	[
+		'class' => ActionColumn::class,
+		'template' => '{edit}{view}{delete}',
+		'buttons' => [
+			'edit' => static function(string $url, Reference $model) use ($class) {
+				return Html::a('<i class="glyphicon glyphicon-edit"></i>', ReferencesModule::to(['references/view', 'id' => $model->id, 'class' => $class->formName()]));
+			},
+			'view' => static function(string $url, Reference $model) use ($class) {
+				return Html::a('<i class="glyphicon glyphicon-eye-open"></i>', ReferencesModule::to(['references/update', 'id' => $model->id, 'class' => $class->formName()]));
+			},
+			'delete' => static function(string $url, Reference $model) use ($class) {
+				return Html::a('<i class="glyphicon glyphicon-trash"></i>', ReferencesModule::to(['references/delete', 'id' => $model->id, 'class' => $class->formName()]));
+			},
+		],
+	]
 ];
 
 $columns = array_merge($columns, $class->columns);
