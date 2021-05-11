@@ -9,16 +9,16 @@ use yii\db\ActiveQuery;
 /**
  * Интерфейс справочника
  *
- * @property integer id
+ * @property int id
  * @property string name
- * @property boolean deleted
+ * @property bool deleted
  * @property-read string $ref_name
  * @property-read array $columns
  * @property-read array $view_columns
  * @property-read string|false $form
  * @property-read string|false $indexForm
  * @property-read string $title
- * @property-read integer $usedCount
+ * @property-read int $usedCount
  * @property-read array $searchSort
  * @property-read DataProviderInterface|null $dataProvider
  * @property null|string $moduleId
@@ -27,7 +27,7 @@ interface ReferenceInterface {
 
 	/**
 	 * Справочникам всегда нужно возвращать массив значений для выбиралок, вот эта функция у них универсальная
-	 * @param boolean $sort Сортировка выдачи
+	 * @param bool $sort Сортировка выдачи
 	 * @return array
 	 */
 	public static function mapData(bool $sort = false):array;

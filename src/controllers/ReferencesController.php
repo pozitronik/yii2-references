@@ -50,7 +50,7 @@ class ReferencesController extends Controller {
 
 	/**
 	 * @param string $class
-	 * @param integer $id
+	 * @param int $id
 	 * @return mixed
 	 * @throws Throwable
 	 * @unused
@@ -80,7 +80,7 @@ class ReferencesController extends Controller {
 
 	/**
 	 * @param string $class
-	 * @param integer $id
+	 * @param int $id
 	 * @return null|string|Response
 	 * @throws Throwable
 	 */
@@ -97,7 +97,7 @@ class ReferencesController extends Controller {
 
 	/**
 	 * @param string $class
-	 * @param integer $id
+	 * @param int $id
 	 * @return mixed
 	 * @throws Throwable
 	 */
