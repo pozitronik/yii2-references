@@ -14,23 +14,36 @@
 			"email": "antikillerxxl@gmail.com"
 		}
 	],
-	"minimum-stability": "stable",
+	"minimum-stability": "dev",
+	"prefer-stable": true,
 	"require": {
-		"pozitronik/yii2-core-tools": "*",
-		"pozitronik/yii2-helpers": "*",
-		"pozitronik/yii2-badgewidget": "*",
-		"pozitronik/yii2-navigationwidget": "*",
-		"kartik-v/yii2-widget-colorinput": "*",
-		"kartik-v/yii2-grid": "*",
-		"kartik-v/yii2-widget-select2": "*",
-		"kartik-v/yii2-widget-depdrop": "*"
+		"pozitronik/yii2-core-tools": "dev-master",
+		"pozitronik/yii2-helpers": "dev-master",
+		"pozitronik/yii2-badgewidget": "dev-master",
+		"pozitronik/yii2-navigationwidget": "dev-master",
+		"kartik-v/yii2-widget-colorinput": "dev-master",
+		"kartik-v/yii2-grid": "dev-master",
+		"kartik-v/yii2-widget-select2": "dev-master",
+		"kartik-v/yii2-widget-depdrop": "dev-master"
 	},
 	"require-dev": {
-		"yiisoft/yii2": "~2.0.37"
+		"yiisoft/yii2": "dev-master"
+	},
+	"config": {
+		"process-timeout": 1800,
+		"fxp-asset": {
+			"enabled": false
+		}
 	},
 	"autoload": {
 		"psr-4": {
 			"pozitronik\\references\\": "src"
 		}
-	}
+	},
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://asset-packagist.org"
+		}
+	]
 }
