@@ -276,7 +276,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 					$dataKey = $attribute;
 					$attributeName = $attribute;
 				}
-				foreach ($items as $key => $item) {
+				foreach ($items as $item) {
 					$result[$item->id]["data-{$dataKey}"] = $item->$attributeName;
 				}
 

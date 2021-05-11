@@ -121,7 +121,7 @@ class CustomisableReference extends Reference {
 		return Yii::$app->cache->getOrSet(static::class."::ColorStyleOptions", static function() {
 			$selection = self::find()->select(['id', new Expression('CONCAT ("background: " , IFNULL(color, "gray"), "; color: ", IFNULL(textcolor, "white")) AS style')])->active()->asArray()->all();
 			$result = [];
-			foreach ($selection as $key => $value) {
+			foreach ($selection as $value) {
 				$result[$value['id']] = [
 					'style' => $value['style']
 				];
