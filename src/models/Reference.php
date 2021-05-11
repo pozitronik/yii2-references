@@ -118,9 +118,9 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 					return $model->deleted?Html::tag('span', "Удалено:", [
 							'class' => 'label label-danger'
 						]).$model->name:BadgeWidget::widget([
-						'models' => $model,
-						'attribute' => 'name',
-						'linkScheme' => [ReferencesModule::to(['references/update']), 'id' => 'id', 'class' => $model->formName()],
+						'items' => $model,
+						'subItem' => 'name',
+						'urlScheme' => [ReferencesModule::to(['references/update']), 'id' => 'id', 'class' => $model->formName()],
 						'itemsSeparator' => false
 					]);
 				},
@@ -132,9 +132,9 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 				'value' => static function($model) {
 					/** @var self $model */
 					return BadgeWidget::widget([
-						'models' => $model,
-						'attribute' => 'usedCount',
-						'linkScheme' => false,
+						'items' => $model,
+						'subItem' => 'usedCount',
+						'urlScheme' => false,
 						'itemsSeparator' => false
 					]);
 				},

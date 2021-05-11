@@ -84,11 +84,13 @@ class CustomisableReference extends Reference {
 					return $model->deleted?Html::tag('span', "Удалено:", [
 							'class' => 'label label-danger'
 						]).$model->name:BadgeWidget::widget([
-						'models' => $model,
-						'attribute' => 'name',
-						'linkScheme' => [ReferencesModule::to(['references/update']), 'id' => 'id', 'class' => $model->formName()],
+						'items' => $model,
+						'subItem' => 'name',
+						'urlScheme' => [ReferencesModule::to(['references/update']), 'id' => 'id', 'class' => $model->formName()],
 						'itemsSeparator' => false,
-						"optionsMap" => self::colorStyleOptions()
+						/* todo: не поддерживается в обновлённой версии виджета
+						 * "optionsMap" => self::colorStyleOptions()
+						*/
 					]);
 				},
 				'format' => 'raw'
@@ -99,13 +101,14 @@ class CustomisableReference extends Reference {
 				'value' => static function($model) {
 					/** @var self $model */
 					return BadgeWidget::widget([
-						'models' => $model,
-						'attribute' => 'usedCount',
-						'linkScheme' => false,
+						'items' => $model,
+						'subItem' => 'usedCount',
+						'urlScheme' => false,
 						'itemsSeparator' => false,
-						"optionsMap" => static function() {
+						/*"optionsMap" => static function() {
+							todo: не поддерживается в обновлённой версии виджета
 							return self::colorStyleOptions();
-						}
+						}*/
 					]);
 				},
 				'format' => 'raw'
