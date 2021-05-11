@@ -86,8 +86,7 @@ class CustomisableReference extends Reference {
 						]).$model->name:BadgeWidget::widget([
 						'items' => $model,
 						'subItem' => 'name',
-						'urlScheme' => [ReferencesModule::to(['references/update']), 'id' => 'id', 'class' => $model->formName()],
-						'itemsSeparator' => false,
+						'urlScheme' => [ReferencesModule::to(['references/update']), 'id' => 'id', 'class' => $model->formName()]
 						/* todo: не поддерживается в обновлённой версии виджета
 						 * "optionsMap" => self::colorStyleOptions()
 						*/
@@ -103,8 +102,7 @@ class CustomisableReference extends Reference {
 					return BadgeWidget::widget([
 						'items' => $model,
 						'subItem' => 'usedCount',
-						'urlScheme' => false,
-						'itemsSeparator' => false,
+						'urlScheme' => false
 						/*"optionsMap" => static function() {
 							todo: не поддерживается в обновлённой версии виджета
 							return self::colorStyleOptions();

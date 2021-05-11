@@ -120,8 +120,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 						]).$model->name:BadgeWidget::widget([
 						'items' => $model,
 						'subItem' => 'name',
-						'urlScheme' => [ReferencesModule::to(['references/update']), 'id' => 'id', 'class' => $model->formName()],
-						'itemsSeparator' => false
+						'urlScheme' => [ReferencesModule::to(['references/update']), 'id' => 'id', 'class' => $model->formName()]
 					]);
 				},
 				'format' => 'raw'
@@ -134,8 +133,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 					return BadgeWidget::widget([
 						'items' => $model,
 						'subItem' => 'usedCount',
-						'urlScheme' => false,
-						'itemsSeparator' => false
+						'urlScheme' => false
 					]);
 				},
 				'format' => 'raw'
