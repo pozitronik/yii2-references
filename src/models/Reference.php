@@ -200,7 +200,6 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 * @return ActiveQuery
 	 */
 	public function search(array $params):ActiveQuery {
-		/** @var ActiveQuery $query */
 		$query = self::find();
 		$this->load($params);
 		$query->andFilterWhere(['LIKE', 'name', $this->name]);

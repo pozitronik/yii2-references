@@ -19,10 +19,10 @@ use yii\web\Response;
 class ReferencesController extends Controller {
 	/**
 	 * @param string|null $class имя класса справочника
-	 * @return mixed
+	 * @return string
 	 * @throws Throwable
 	 */
-	public function actionIndex(?string $class = null) {
+	public function actionIndex(?string $class = null):string {
 		if (null === $class) {//list all reference models
 			$dataProvider = new ArrayDataProvider([
 				'allModels' => ReferenceLoader::getList()
@@ -51,11 +51,11 @@ class ReferencesController extends Controller {
 	/**
 	 * @param string $class
 	 * @param int $id
-	 * @return mixed
+	 * @return string
 	 * @throws Throwable
 	 * @unused
 	 */
-	public function actionView($class, $id) {
+	public function actionView($class, $id):string {
 		return $this->render('view', [
 			'model' => ReferenceLoader::getReferenceByClassName($class)::findModel($id, new NotFoundHttpException())
 		]);
@@ -98,10 +98,10 @@ class ReferencesController extends Controller {
 	/**
 	 * @param string $class
 	 * @param int $id
-	 * @return mixed
+	 * @return Response
 	 * @throws Throwable
 	 */
-	public function actionDelete($class, $id) {
+	public function actionDelete($class, $id):Response {
 		if (null !== $model = ReferenceLoader::getReferenceByClassName($class)::findModel($id, new NotFoundHttpException())) $model->safeDelete();
 		return $this->redirect(['index', 'class' => $class]);
 	}

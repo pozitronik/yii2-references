@@ -6,6 +6,7 @@ namespace pozitronik\references\widgets\navigation_menu_base;
 use pozitronik\helpers\ArrayHelper;
 use pozitronik\helpers\ReflectionHelper;
 use pozitronik\widgets\CachedWidget;
+use Throwable;
 use yii\db\ActiveRecord;
 
 /**
@@ -46,6 +47,7 @@ class BaseNavigationMenuWidget extends CachedWidget {
 	/**
 	 * Функция возврата результата рендеринга виджета
 	 * @return string|array
+	 * @throws Throwable
 	 */
 	public function run():string {
 		if ($this->model->isNewRecord) return '';
