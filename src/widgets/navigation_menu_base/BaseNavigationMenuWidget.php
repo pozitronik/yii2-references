@@ -54,12 +54,10 @@ class BaseNavigationMenuWidget extends CachedWidget {
 				return $this->render('navigation_menu', [
 					'items' => $this->_navigationItems
 				]);
-			break;
 			case self::MODE_TABS:
 				return $this->render('navigation_tabs', [
 					'items' => $this->_navigationItems
 				]);
-			break;
 			default:
 			case self::MODE_BOTH:
 				$menuItems = array_filter($this->_navigationItems, static function($element) {
@@ -72,12 +70,10 @@ class BaseNavigationMenuWidget extends CachedWidget {
 					])).(([] === $menuItems)?'':$this->render('navigation_menu', [
 						'items' => $menuItems
 					]));
-			break;
 			case self::MODE_ACTION_COLUMN_MENU:
 				return $this->render('navigation_column_menu', [
 					'items' => $this->_navigationItems
 				]);
-			break;
 		}
 
 	}
