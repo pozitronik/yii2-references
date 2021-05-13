@@ -42,7 +42,7 @@ Requirements
 ------------
 
 Yii2,
-PHP >= 7.2.0
+PHP >= 7.4.0
 
 
 Usage
