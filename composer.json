@@ -17,6 +17,7 @@
 	"minimum-stability": "dev",
 	"prefer-stable": true,
 	"require": {
+		"php": ">=7.4",
 		"pozitronik/yii2-core-tools": "dev-master",
 		"pozitronik/yii2-helpers": "dev-master",
 		"pozitronik/yii2-badgewidget": "dev-master",
