@@ -71,8 +71,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 			[['name'], 'unique'],
 			[['id', 'usedCount'], 'integer'],
 			[['deleted'], 'boolean'],
-			[['name'], 'string', 'max' => 256],
-			[['value'], 'string', 'max' => 512]
+			[['name'], 'string', 'max' => 256]
 		];
 	}
 
