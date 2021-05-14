@@ -16,11 +16,13 @@ use yii\base\InvalidConfigException;
  * Расширяем картиковский Dependent Dropdown для поддержки ReferenceSelectWidget
  * Class RefDepDrop
  * @package app\modules\references\widgets\referense_depedent_dropdown
+ * @property string $referenceClass
+ * @property int $type
  */
 class RefDepDrop extends DepDrop {
 
 	public const TYPE_REFERENCE_SELECT = 3;
-	public $referenceClass;
+	public string $referenceClass;
 	public $type = self::TYPE_REFERENCE_SELECT;
 
 	/**
