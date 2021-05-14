@@ -19,10 +19,10 @@
 		"pozitronik/yii2-core-tools": "1.2.0",
 		"pozitronik/yii2-badgewidget": "1.11.1",
 		"pozitronik/yii2-navigationwidget": "1.1.1",
-		"kartik-v/yii2-widget-colorinput": "dev-master",
-		"kartik-v/yii2-grid": "dev-master",
-		"kartik-v/yii2-widget-select2": "dev-master",
-		"kartik-v/yii2-widget-depdrop": "dev-master"
+		"kartik-v/yii2-widget-colorinput": "v1.0.6",
+		"kartik-v/yii2-grid": "~3.3.5",
+		"kartik-v/yii2-widget-select2": "~v2.2.0",
+		"kartik-v/yii2-widget-depdrop": "~v1.0.6"
 	},
 	"require-dev": {
 		"yiisoft/yii2": "~2.0.37"
