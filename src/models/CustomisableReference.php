@@ -111,23 +111,6 @@ class CustomisableReference extends Reference {
 	}
 
 	/**
-	 * Возвращает параметр цвета (если поддерживается справочником) в виде стиля для отображения в BadgeWidget (или любом другом похожем выводе)
-	 * @return array
-	 */
-	public static function colorStyleOptions():array {
-		return Yii::$app->cache->getOrSet(static::class."::ColorStyleOptions", static function() {
-			$selection = self::find()->select(['id', new Expression('CONCAT ("background: " , IFNULL(color, "gray"), "; color: ", IFNULL(textcolor, "white")) AS style')])->active()->asArray()->all();
-			$result = [];
-			foreach ($selection as $value) {
-				$result[$value['id']] = [
-					'style' => $value['style']
-				];
-			}
-			return $result;
-		}, null, new TagDependency(['tags' => static::class."::ColorStyleOptions"]));
-	}
-
-	/**
 	 * Если в справочнике требуется редактировать поля, кроме обязательных, то функция возвращает путь к встраиваемой вьюхе, иначе к дефолтной
 	 *
 	 * Сначала проверяем наличие вьюхи в расширении (/module/views/{formName}/_form.php). Если её нет, то проверяем такой же путь в модуле справочников.
