@@ -17,12 +17,13 @@ use yii\web\JsExpression;
 /**
  * Виджет-выбиралка для любых справочников. Добавляет к Select2 стандартное для справочников форматирование данных.
  *
- * @property ReferenceInterface $referenceClass Модель справочника, к которой интегрируется виджет
+ * @property string $referenceClass Модель справочника, к которой интегрируется виджет
  * @property bool $showEditAddon Включает кнопку перехода к редактированию справочника
  */
 class ReferenceSelectWidget extends Select2 {
-	public $referenceClass;
-	public $showEditAddon = true;
+	public ?string $referenceClass;
+	public bool $showEditAddon = true;
+	private ?ReferenceInterface $_referenceModel = null;
 
 	/**
 	 * Функция инициализации и нормализации свойств виджета
@@ -30,6 +31,7 @@ class ReferenceSelectWidget extends Select2 {
 	public function init():void {
 		parent::init();
 		ReferenceSelectWidgetAssets::register($this->getView());
+		$this->_referenceModel = new $this->referenceClass();
 	}
 
 	/**
@@ -47,12 +49,12 @@ class ReferenceSelectWidget extends Select2 {
 			$this->pluginOptions['templateResult'] = new JsExpression('function(item) {return formatReferenceItem(item)}');
 			$this->pluginOptions['templateSelection'] = new JsExpression('function(item) {return formatSelectedReferenceItem(item)}');
 			$this->pluginOptions['escapeMarkup'] = new JsExpression('function (markup) { return markup; }');
-			$this->data = $this->data??$this->referenceClass::mapData();
-			$this->options['options'] = $this->referenceClass::dataOptions();
+			$this->data = $this->data??$this->_referenceModel::mapData();
+			$this->options['options'] = $this->_referenceModel::dataOptions();
 			if ($this->showEditAddon) {
 				$this->addon = [
 					'append' => [
-						'content' => ReferencesModule::a("<i class='fa fa-edit ' title='Редактирование'></i>", ['references/index', 'class' => ReflectionHelper::GetClassShortName(get_class($this->referenceClass))], ['class' => 'btn btn-default']),
+						'content' =>  ReferencesModule::a("<i class='fa fa-edit ' title='Редактирование'></i>", ['references/index', 'class' => ReflectionHelper::GetClassShortName($this->referenceClass)], ['class' => 'btn btn-default']),
 						'asButton' => true
 					]
 				];
