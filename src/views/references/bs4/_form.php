@@ -15,8 +15,9 @@ use yii\bootstrap4\ActiveForm;
 ?>
 
 <div class="panel">
-	<h2><?= Html::encode($this->title) ?></h2>
+
 	<div class="panel-hdr">
+		<h2><?= Html::encode($this->title) ?></h2>
 		<div class="panel-toolbar"></div>
 	</div>
 	<?php $form = ActiveForm::begin(); ?>
