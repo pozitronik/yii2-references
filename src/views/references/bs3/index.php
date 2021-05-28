@@ -10,7 +10,7 @@ use yii\web\View;
 use pozitronik\references\models\Reference;
 
 /**
- * @var View $this ;
+ * @var View $this
  * @var ActiveDataProvider $dataProvider
  * @var Reference|false $class
  * @var Reference $searchModel

@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace pozitronik\references\controllers;
 
+use pozitronik\helpers\BootstrapHelper;
 use pozitronik\references\models\ReferenceLoader;
 use Yii;
 use yii\base\InvalidConfigException;
@@ -17,6 +18,14 @@ use yii\web\Response;
  * Управление всеми справочниками
  */
 class ReferencesController extends Controller {
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getViewPath():string {
+		return parent::getViewPath().DIRECTORY_SEPARATOR.(BootstrapHelper::isBs4()?'bs4':'bs3');
+	}
+
 	/**
 	 * @param string|null $class имя класса справочника
 	 * @return string

@@ -8,7 +8,7 @@ use yii\web\View;
 use pozitronik\references\models\Reference;
 
 /**
- * @var View $this ;
+ * @var View $this
  * @var ArrayDataProvider $dataProvider
  */
 
