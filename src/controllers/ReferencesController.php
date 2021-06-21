@@ -45,11 +45,11 @@ class ReferencesController extends Controller {
 			throw new InvalidConfigException("$class reference not found in configuration scope");
 		}
 		$dataProvider = $reference->dataProvider??new ActiveDataProvider([
-			'query' => $reference->search(Yii::$app->request->queryParams),
-			'sort' => $reference->searchSort
-		]);
+				'query' => $reference->search(Yii::$app->request->queryParams),
+				'sort' => $reference->searchSort
+			]);
 
-		return $this->render($reference->indexForm, [
+		return null === $reference->indexForm?'Not supported':$this->render($reference->indexForm, [
 			'searchModel' => $reference,
 			'dataProvider' => $dataProvider,
 			'class' => $reference
@@ -62,9 +62,8 @@ class ReferencesController extends Controller {
 	 * @param int $id
 	 * @return string
 	 * @throws Throwable
-	 * @unused
 	 */
-	public function actionView($class, $id):string {
+	public function actionView(string $class, int $id):string {
 		return $this->render('view', [
 			'model' => ReferenceLoader::getReferenceByClassName($class)::findModel($id, new NotFoundHttpException())
 		]);
@@ -75,7 +74,7 @@ class ReferencesController extends Controller {
 	 * @return null|string|Response
 	 * @throws Throwable
 	 */
-	public function actionCreate($class) {
+	public function actionCreate(string $class) {
 		if (null === $model = ReferenceLoader::getReferenceByClassName($class)) return null;
 		if ($model->createModel(Yii::$app->request->post($model->formName()))) {
 			if (Yii::$app->request->post('more', false)) return $this->redirect(['create', 'class' => $class]);//Создали и создаём ещё
@@ -93,7 +92,7 @@ class ReferencesController extends Controller {
 	 * @return null|string|Response
 	 * @throws Throwable
 	 */
-	public function actionUpdate($class, $id) {
+	public function actionUpdate(string $class, int $id) {
 		if (null === $model = ReferenceLoader::getReferenceByClassName($class)::findModel($id, new NotFoundHttpException())) return null;
 		if ($model->updateModel(Yii::$app->request->post($model->formName()))) {
 			return $this->redirect(['update', 'id' => $model->id, 'class' => $class]);
@@ -110,7 +109,7 @@ class ReferencesController extends Controller {
 	 * @return Response
 	 * @throws Throwable
 	 */
-	public function actionDelete($class, $id):Response {
+	public function actionDelete(string $class, int $id):Response {
 		if (null !== $model = ReferenceLoader::getReferenceByClassName($class)::findModel($id, new NotFoundHttpException())) $model->safeDelete();
 		return $this->redirect(['index', 'class' => $class]);
 	}

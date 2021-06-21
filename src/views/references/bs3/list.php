@@ -2,10 +2,10 @@
 declare(strict_types = 1);
 
 use kartik\grid\GridView;
+use pozitronik\references\models\ReferenceInterface;
 use yii\helpers\Html;
 use yii\data\ArrayDataProvider;
 use yii\web\View;
-use pozitronik\references\models\Reference;
 
 /**
  * @var View $this
@@ -26,14 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
 				[
 					'attribute' => 'menuCaption',
 					'label' => 'Название справочника',
-					'value' => static function(Reference $referenceModel) {
+					'value' => static function(ReferenceInterface $referenceModel) {
 						return Html::a($referenceModel->menuCaption, ['index', 'class' => $referenceModel->formName()]);
 					},
 					'format' => 'raw'
 				],
 				[
 					'label' => 'Модуль',
-					'value' => static function(Reference $referenceModel) {
+					'value' => static function(ReferenceInterface $referenceModel) {
 						return $referenceModel->moduleId??'Базовый';
 					}
 				]

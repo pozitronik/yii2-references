@@ -4,9 +4,11 @@ declare(strict_types = 1);
 namespace pozitronik\references\models;
 
 use pozitronik\core\helpers\ModuleHelper;
+use pozitronik\core\traits\ModuleExtended;
 use pozitronik\helpers\ArrayHelper;
 use pozitronik\widgets\BadgeWidget;
 use Throwable;
+use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\base\Module;
@@ -22,8 +24,12 @@ use yii\db\ActiveQuery;
  * @property-read int $id
  * @property-read string $name
  * @property-read bool $deleted
+ *
+ * @property-read ArrayReference[] $models Массив моделей справочника, загруженный из конфига
  */
 class ArrayReference extends Model implements ReferenceInterface {
+
+	public string $menuCaption = "Конфигурация";
 	/**
 	 * @var array[]
 	 */
@@ -34,16 +40,30 @@ class ArrayReference extends Model implements ReferenceInterface {
 	public bool $deleted = false;
 
 	protected $_moduleId;
+	private array $_models = [];
 
 	/**
 	 * @param int $index
-	 * @return ArrayReference
+	 * @return ArrayReference|null
 	 * @throws Throwable
 	 */
-	public static function loadModel(int $index):ArrayReference {
+	public static function loadModel(int $index):?ArrayReference {
 		$model = new static(['id' => $index]);
-		$model->load((array)ArrayHelper::getValue($model->items, $index, []), '');
+		if (null === $data = ArrayHelper::getValue($model->items, $index)) return null;
+		$model->load((array)$data, '');
 		return $model;
+	}
+
+	/**
+	 * @return self[]
+	 */
+	public function getModels():array {
+		if ([] === $this->_models) {
+			foreach ($this->items as $index => $item) {
+				$this->_models[] = new static(['id' => $index] + $item);
+			}
+		}
+		return $this->_models;
 	}
 
 	/**
@@ -71,6 +91,9 @@ class ArrayReference extends Model implements ReferenceInterface {
 		return $data;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function getColumns():array {
 		return [
 			[
@@ -108,12 +131,47 @@ class ArrayReference extends Model implements ReferenceInterface {
 		return $this->columns;
 	}
 
-	public function getForm():?string {
-		return null;
+	/**
+	 * Ищет заданную вьюху сначала в каталоге вьюх класса, если там нет - вернёт дефолтную
+	 * @param string $viewName
+	 * @return string
+	 * @throws InvalidConfigException
+	 * @throws Throwable
+	 */
+	private function getViewPath(string $viewName):string {
+		$file_path = mb_strtolower($this->formName())."/{$viewName}.php";
+		/** @var ModuleExtended $module */
+		if (null !== $module = ReferenceLoader::getReferenceByClassName($this->formName())->module) {//это справочник расширения
+			$form_alias = $module->alias.'/views/references/'.$file_path;
+			if (file_exists(Yii::getAlias($form_alias))) return $form_alias;
+
+		}
+
+		return file_exists(Yii::$app->controller->module->viewPath.DIRECTORY_SEPARATOR.Yii::$app->controller->id.DIRECTORY_SEPARATOR.$file_path)?$file_path:$viewName;
 	}
 
-	public function getIndexForm():?string {
-		return null;
+	/**
+	 * Если в справочнике требуется редактировать поля, кроме обязательных, то функция возвращает путь к встраиваемой вьюхе, иначе к дефолтной
+	 *
+	 * Сначала проверяем наличие вьюхи в расширении (/module/views/{formName}/_form.php). Если её нет, то проверяем такой же путь в модуле справочников.
+	 * Если и там ничего нет, скатываемся на показ дефолтной вьюхи
+	 *
+	 * @return string
+	 * @throws InvalidConfigException
+	 * @throws Throwable
+	 */
+	public function getForm():string {
+		return $this->getViewPath('_form');
+	}
+
+	/**
+	 * @inheritDoc
+	 * @return string
+	 * @throws InvalidConfigException
+	 * @throws Throwable
+	 */
+	public function getIndexForm():string {
+		return $this->getViewPath('index');
 	}
 
 	/**
@@ -140,29 +198,59 @@ class ArrayReference extends Model implements ReferenceInterface {
 		return (null === $this->moduleId)?null:ModuleHelper::GetModuleById($this->moduleId);
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function search(array $params):?ActiveQuery {
 		return null;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function getSearchSort():?array {
 		return null;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public static function merge(int $fromId, int $toId):void {
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function getUsedCount():?int {
 		return null;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public static function dataOptions():array {
 		return [];
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function getDataProvider():?DataProviderInterface {
 		return new ArrayDataProvider([
-			'allModels' => $this->items
+			'allModels' => $this->models
 		]);
+	}
+
+	/**
+	 * Затычка, которая уйдёт при рефакторинге ARExtended, и унификации интерфейса
+	 *
+	 * @param $id
+	 * @param Throwable|null $throw
+	 * @return static|null
+	 * @throws Throwable
+	 */
+	public static function findModel($id, ?Throwable $throw = null):?self {
+		return self::loadModel((int)$id);
 	}
 
 }

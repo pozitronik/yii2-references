@@ -109,4 +109,9 @@ interface ReferenceInterface {
 	 * @return DataProviderInterface|null
 	 */
 	public function getDataProvider():?DataProviderInterface;
+
+	/**
+	 * @see Model::formName()
+	 */
+	public function formName();
 }

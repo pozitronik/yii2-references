@@ -1,20 +1,20 @@
 <?php
 declare(strict_types = 1);
 
+use pozitronik\references\models\ReferenceInterface;
 use pozitronik\references\ReferencesModule;
 use kartik\grid\GridView;
+use yii\data\DataProviderInterface;
 use yii\grid\ActionColumn;
 use yii\bootstrap4\Html;
-use yii\data\ActiveDataProvider;
 use yii\web\View;
-use pozitronik\references\models\Reference;
 use yii\bootstrap4\LinkPager;
 
 /**
  * @var View $this
- * @var ActiveDataProvider $dataProvider
- * @var Reference|false $class
- * @var Reference $searchModel
+ * @var DataProviderInterface $dataProvider
+ * @var ReferenceInterface $class
+ * @var ReferenceInterface $searchModel
  */
 
 $this->title = $class->menuCaption;
@@ -25,13 +25,13 @@ $columns[] = [
 	'class' => ActionColumn::class,
 	'template' => '{edit}{view}{delete}',
 	'buttons' => [
-		'edit' => static function(string $url, Reference $model) use ($class) {
+		'edit' => static function(string $url, ReferenceInterface $model) use ($class) {
 			return Html::a('<i class="fa fa-edit"></i>', ReferencesModule::to(['references/update', 'id' => $model->id, 'class' => $class->formName()]));
 		},
-		'view' => static function(string $url, Reference $model) use ($class) {
+		'view' => static function(string $url, ReferenceInterface $model) use ($class) {
 			return Html::a('<i class="fa fa-eye"></i>', ReferencesModule::to(['references/view', 'id' => $model->id, 'class' => $class->formName()]));
 		},
-		'delete' => static function(string $url, Reference $model) use ($class) {
+		'delete' => static function(string $url, ReferenceInterface $model) use ($class) {
 			return Html::a('<i class="fa fa-trash"></i>', ReferencesModule::to(['references/delete', 'id' => $model->id, 'class' => $class->formName()]));
 		},
 	],
