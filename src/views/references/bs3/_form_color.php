@@ -59,7 +59,7 @@ use yii\widgets\ActiveForm;
 	<div class="panel-footer">
 		<?= Html::submitButton($model->isNewRecord?'Создать':'Изменить', ['class' => $model->isNewRecord?'btn btn-success':'btn btn-primary']) ?>
 		<?php if ($model->isNewRecord): ?>
-			<?= Html::input('submit', 'more', 'Сохранить и добавить ещё', ['class' => 'btn btn-primary']) ?>
+			<?= Html::submitButton('Сохранить и добавить ещё', ['class' => 'btn btn-primary', 'data-method' => 'POST', 'data-params' => ['more' => true]]) ?>
 		<?php endif ?>
 	</div>
 	<?php ActiveForm::end(); ?>
