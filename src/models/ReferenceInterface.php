@@ -9,24 +9,25 @@ use yii\db\ActiveQuery;
 /**
  * Интерфейс справочника
  *
- * @property int id
- * @property string name
- * @property bool deleted
- * @property-read string $ref_name
- * @property-read array $columns
- * @property-read array $view_columns
- * @property-read string|false $form
- * @property-read string|false $indexForm
+ * @property int id Обязательное индексное поле ключа
+ * @property string name Обязательное поле значения для ключа
+ * @property bool deleted Опциональное поле активности записи (если отсутствует в наборе данных, то всегда должно быть false)
+ * @property-read string $ref_name Название справочника (используется в глобальном контроллере)
+ * @property-read array $columns Набор колонок для отображения на странице просмотра
+ * @property-read array $view_columns Набор колонок для отображения на странице просмотра
+ * @property-read null|string $form
+ * @property-read null|string $indexForm
  * @property-read string $title
- * @property-read int $usedCount
- * @property-read array $searchSort
+ * @property-read null|int $usedCount Количество объектов, использующих это значение справочника, null - неизвестно
+ * @property-read null|array $searchSort
  * @property-read DataProviderInterface|null $dataProvider
- * @property null|string $moduleId
+ * @property null|string $moduleId id модуля, которому принадлежит справочник (null, если справочник базовый).
  */
 interface ReferenceInterface {
 
 	/**
-	 * Справочникам всегда нужно возвращать массив значений для выбиралок, вот эта функция у них универсальная
+	 * Массив значений справочника в id=>name формате (с игнорированием других имеющихся полей).
+	 * Нужно для выбиралок.
 	 * @param bool $sort Сортировка выдачи
 	 * @return array
 	 */
@@ -45,18 +46,21 @@ interface ReferenceInterface {
 	public function getView_columns():array;
 
 	/**
-	 * Если в справочнике требуется редактировать поля, кроме обязательных, то функция возвращает путь к встраиваемой вьюхе, иначе к дефолтной
-	 * @return string|false
+	 * Если в справочнике требуется редактировать поля, кроме обязательных, то функция возвращает путь к встраиваемой вьюхе, иначе к дефолтной.
+	 * null - редактирования не предусмотрено
+	 * @return null|string
 	 */
-	public function getForm():string;
+	public function getForm():?string;
 	/**
-	 * Если в справочнике требуется отобразить полностью собственную главную страницу, то функция возвращает путь к встраиваемой вьюхе, иначе к дефолтной
-	 * @return string|false
+	 * Если в справочнике требуется отобразить полностью собственную главную страницу, то функция возвращает путь к встраиваемой вьюхе, иначе к дефолтной.
+	 * null - собственной индексной страницы не предусмотрено
+	 * @return null|string
 	 */
-	public function getIndexForm():string;
+	public function getIndexForm():?string;
 
 	/**
-	 * Возвращает id модуля, добавившего справочник (null, если справочник базовый)
+	 * Возвращает id модуля, которому принадлежит справочник (null, если справочник базовый).
+	 * Можно возвращать любой мнемонический идентификатор.
 	 * @return string|null
 	 */
 	public function getModuleId():?string;
@@ -68,13 +72,15 @@ interface ReferenceInterface {
 
 	/**
 	 * Поиск по справочнику
+	 * null, если не поддерживается
 	 * @param array $params
-	 * @return ActiveQuery
+	 * @return null|ActiveQuery
 	 */
-	public function search(array $params):ActiveQuery;
+	public function search(array $params):?ActiveQuery;
 
 	/**
-	 * @return array
+	 * Правила сортировки в поиске по справочнику, null - не предусмотрено
+	 * @return null|array
 	 */
 	public function getSearchSort():?array;
 
@@ -86,14 +92,14 @@ interface ReferenceInterface {
 	public static function merge(int $fromId, int $toId):void;
 
 	/**
-	 * Количество объектов, использующих это значение справочника
-	 * @return int
+	 * Количество объектов, использующих это значение справочника.
+	 * null - неизвестно
+	 * @return null|int
 	 */
-	public function getUsedCount():int;
+	public function getUsedCount():?int;
 
 	/**
 	 * Возвращает набор параметров в виде data-опций, которые виджет выбиралки присунет в селект.
-	 * Рекомендуемый способ получения опций через аякс не менее геморроен, но ещё и не работает
 	 * @return array
 	 */
 	public static function dataOptions():array;
