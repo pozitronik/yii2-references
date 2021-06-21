@@ -25,8 +25,8 @@ use yii\helpers\Html;
  */
 class CustomisableReference extends Reference {
 
-	protected $_dataAttributes = ['color', 'textcolor'];
-	protected $_usedCount;//для поиска
+	protected array $_dataAttributes = ['color', 'textcolor'];
+	protected ?int $_usedCount;//для поиска
 
 	/**
 	 * @inheritdoc
