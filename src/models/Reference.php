@@ -46,13 +46,13 @@ use RuntimeException;
 class Reference extends ActiveRecord implements ReferenceInterface {
 	use ARExtended;
 
-	public $menuCaption = "Справочник";
+	public string $menuCaption = "Справочник";
 	/*	Массив, перечисляющий имена атрибутов, которые должны отдаваться в dataOptions
 		Имя может быть строковое (если название атрибута совпадает с именем data-атрибута, либо массивом
 		формата ['имя data-атрибута' => 'атрибут модели']
 	*/
-	protected $_dataAttributes = [];
-	protected $_moduleId;
+	protected array $_dataAttributes = [];
+	protected ?string $_moduleId;
 
 	/**
 	 * @return string
