@@ -26,6 +26,7 @@ use yii\db\ActiveQuery;
  * @property-read bool $deleted
  *
  * @property-read ArrayReference[] $models Массив моделей справочника, загруженный из конфига
+ * @property null|Module $module
  */
 class ArrayReference extends Model implements ReferenceInterface {
 
@@ -43,13 +44,11 @@ class ArrayReference extends Model implements ReferenceInterface {
 	private array $_models = [];
 
 	/**
-	 * @param int $index
-	 * @return ArrayReference|null
-	 * @throws Throwable
+	 * @inheritDoc
 	 */
-	public static function loadModel(int $index):?ArrayReference {
-		$model = new static(['id' => $index]);
-		if (null === $data = ArrayHelper::getValue($model->items, $index)) return null;
+	public static function getRecord(int $id):?ReferenceInterface {
+		$model = new static(['id' => $id]);
+		if (null === $data = ArrayHelper::getValue($model->items, $id)) return null;
 		$model->load((array)$data, '');
 		return $model;
 	}
@@ -242,15 +241,23 @@ class ArrayReference extends Model implements ReferenceInterface {
 	}
 
 	/**
-	 * Затычка, которая уйдёт при рефакторинге ARExtended, и унификации интерфейса
-	 *
-	 * @param $id
-	 * @param Throwable|null $throw
-	 * @return static|null
-	 * @throws Throwable
+	 * @inheritDoc
 	 */
-	public static function findModel($id, ?Throwable $throw = null):?self {
-		return self::loadModel((int)$id);
+	public function createRecord(?array $data):?bool {
+		return null;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	public function updateRecord(?array $data):?bool {
+		return null;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function deleteRecord():?bool {
+		return null;
+	}
 }

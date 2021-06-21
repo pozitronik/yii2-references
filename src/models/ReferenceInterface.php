@@ -51,6 +51,7 @@ interface ReferenceInterface {
 	 * @return null|string
 	 */
 	public function getForm():?string;
+
 	/**
 	 * Если в справочнике требуется отобразить полностью собственную главную страницу, то функция возвращает путь к встраиваемой вьюхе, иначе к дефолтной.
 	 * null - собственной индексной страницы не предусмотрено
@@ -109,6 +110,33 @@ interface ReferenceInterface {
 	 * @return DataProviderInterface|null
 	 */
 	public function getDataProvider():?DataProviderInterface;
+
+	/**
+	 * Создать новую запись в справочнике из массива $data
+	 * @param null|array $data
+	 * @return bool|null true - успешно, false - ошибка, null - не поддерживается
+	 */
+	public function createRecord(?array $data):?bool;
+
+	/**
+	 * Обновить запись в справочнике из массива $data
+	 * @param null|array $data
+	 * @return bool|null true - успешно, false - ошибка, null - не поддерживается
+	 */
+	public function updateRecord(?array $data):?bool;
+
+	/**
+	 * Удалить запись
+	 * @return bool|null true - успешно, false - ошибка, null - не поддерживается
+	 */
+	public function deleteRecord():?bool;
+
+	/**
+	 * Вернуть запись по ключу, null, если такой записи нет
+	 * @param int $id
+	 * @return ReferenceInterface|null
+	 */
+	public static function getRecord(int $id):?ReferenceInterface;
 
 	/**
 	 * @see Model::formName()

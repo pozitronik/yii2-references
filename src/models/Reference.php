@@ -41,7 +41,6 @@ use RuntimeException;
  * @property null|string $moduleId Плагин, подключающий расширение
  * @property null|Module $module
  *
- *
  */
 class Reference extends ActiveRecord implements ReferenceInterface {
 	use ARExtended;
@@ -320,5 +319,34 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 */
 	public function getDataProvider():?DataProviderInterface {
 		return null;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function createRecord(?array $data):?bool {
+		return $this->createModel($data);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function updateRecord(?array $data):?bool {
+		return $this->updateModel($data);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public static function getRecord(int $id):?ReferenceInterface {
+		return self::findOne($id);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function deleteRecord():?bool {
+		$this->safeDelete();
+		return true;
 	}
 }

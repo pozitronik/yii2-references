@@ -10,6 +10,7 @@ use yii\base\InvalidConfigException;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\web\Controller;
+use yii\web\MethodNotAllowedHttpException;
 use yii\web\NotFoundHttpException;
 use Throwable;
 use yii\web\Response;
@@ -64,8 +65,9 @@ class ReferencesController extends Controller {
 	 * @throws Throwable
 	 */
 	public function actionView(string $class, int $id):string {
+		if (null === $model = ReferenceLoader::getReferenceByClassName($class)::getRecord($id)) throw new NotFoundHttpException();
 		return $this->render('view', [
-			'model' => ReferenceLoader::getReferenceByClassName($class)::findModel($id, new NotFoundHttpException())
+			'model' => $model
 		]);
 	}
 
@@ -76,7 +78,9 @@ class ReferencesController extends Controller {
 	 */
 	public function actionCreate(string $class) {
 		if (null === $model = ReferenceLoader::getReferenceByClassName($class)) return null;
-		if ($model->createModel(Yii::$app->request->post($model->formName()))) {
+		if (null === $model->createRecord(Yii::$app->request->post($model->formName()))) throw new MethodNotAllowedHttpException('Method not allowed for read-only models');
+
+		if ($model->createRecord(Yii::$app->request->post($model->formName()))) {
 			if (Yii::$app->request->post('more', false)) return $this->redirect(['create', 'class' => $class]);//Создали и создаём ещё
 			return $this->redirect(['index', 'class' => $class]);
 		}
@@ -93,8 +97,10 @@ class ReferencesController extends Controller {
 	 * @throws Throwable
 	 */
 	public function actionUpdate(string $class, int $id) {
-		if (null === $model = ReferenceLoader::getReferenceByClassName($class)::findModel($id, new NotFoundHttpException())) return null;
-		if ($model->updateModel(Yii::$app->request->post($model->formName()))) {
+		if (null === $model = ReferenceLoader::getReferenceByClassName($class)::getRecord($id)) throw new NotFoundHttpException();
+		if (null === $model->createRecord(Yii::$app->request->post($model->formName()))) throw new MethodNotAllowedHttpException('Method not allowed for read-only models');
+
+		if ($model->updateRecord(Yii::$app->request->post($model->formName()))) {
 			return $this->redirect(['update', 'id' => $model->id, 'class' => $class]);
 		}
 
@@ -110,7 +116,8 @@ class ReferencesController extends Controller {
 	 * @throws Throwable
 	 */
 	public function actionDelete(string $class, int $id):Response {
-		if (null !== $model = ReferenceLoader::getReferenceByClassName($class)::findModel($id, new NotFoundHttpException())) $model->safeDelete();
+		if (null === $model = ReferenceLoader::getReferenceByClassName($class)::getRecord($id)) throw new NotFoundHttpException();
+		if (null === $model->deleteRecord()) throw new MethodNotAllowedHttpException('Method not allowed for read-only models');
 		return $this->redirect(['index', 'class' => $class]);
 	}
 }
