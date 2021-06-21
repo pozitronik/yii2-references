@@ -196,7 +196,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 * @param array $params
 	 * @return ActiveQuery
 	 */
-	public function search(array $params):ActiveQuery {
+	public function search(array $params):?ActiveQuery {
 		$query = self::find();
 		$this->load($params);
 		$query->andFilterWhere(['LIKE', 'name', $this->name]);
@@ -231,8 +231,8 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 * Количество объектов, использующих это значение справочника
 	 * @return int
 	 */
-	public function getUsedCount():int {
-		return 0;
+	public function getUsedCount():?int {
+		return null;
 	}
 
 	/**
