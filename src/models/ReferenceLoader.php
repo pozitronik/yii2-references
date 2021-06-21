@@ -63,7 +63,7 @@ class ReferenceLoader extends Model {
 			$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($baseReferencesDir), RecursiveIteratorIterator::SELF_FIRST);
 			/** @var RecursiveDirectoryIterator $file */
 			foreach ($files as $file) {
-				if ($file->isFile() && 'php' === $file->getExtension() && null !== $model = ReflectionHelper::LoadClassFromFile($file->getRealPath(), [Reference::class], false)) {
+				if ($file->isFile() && 'php' === $file->getExtension() && null !== $model = ReflectionHelper::LoadClassFromFile($file->getRealPath(), [ReferenceInterface::class], false)) {
 					$baseReferences[$model->formName()] = $model;
 				}
 			}
