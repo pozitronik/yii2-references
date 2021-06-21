@@ -26,7 +26,7 @@ class ReferenceLoader extends Model {
 	public const REFERENCES_DIRECTORY = '@app/models/references';//можно задать массивом алиасов
 
 	/**
-	 * @return Reference[]
+	 * @return ReferenceInterface[]
 	 * @throws ReflectionException
 	 * @throws Throwable
 	 * @throws InvalidConfigException
@@ -50,7 +50,7 @@ class ReferenceLoader extends Model {
 
 	/**
 	 * @param string $referencesDir
-	 * @return Reference[]
+	 * @return ReferenceInterface[]
 	 * @throws ReflectionException
 	 * @throws Throwable
 	 * @throws UnknownClassException
@@ -73,7 +73,7 @@ class ReferenceLoader extends Model {
 
 	/**
 	 * @param string $className
-	 * @return Reference|null
+	 * @return ReferenceInterface|null
 	 * @throws Throwable
 	 */
 	public static function getReferenceByClassName(string $className):?ReferenceInterface {
