@@ -3,9 +3,9 @@ declare(strict_types = 1);
 
 namespace pozitronik\references\models;
 
-use pozitronik\core\helpers\ModuleHelper;
-use pozitronik\core\traits\ModuleExtended;
+use pozitronik\helpers\ModuleHelper;
 use pozitronik\helpers\ArrayHelper;
+use pozitronik\traits\traits\ModuleTrait;
 use pozitronik\widgets\BadgeWidget;
 use Throwable;
 use Yii;
@@ -139,7 +139,7 @@ class ArrayReference extends Model implements ReferenceInterface {
 	 */
 	private function getViewPath(string $viewName):string {
 		$file_path = mb_strtolower($this->formName())."/{$viewName}.php";
-		/** @var ModuleExtended $module */
+		/** @var ModuleTrait $module */
 		if (null !== $module = ReferenceLoader::getReferenceByClassName($this->formName())->module) {//это справочник расширения
 			$form_alias = $module->alias.'/views/references/'.$file_path;
 			if (file_exists(Yii::getAlias($form_alias))) return $form_alias;

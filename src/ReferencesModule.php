@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace pozitronik\references;
 
-use pozitronik\core\traits\ModuleExtended;
+use pozitronik\traits\traits\ModuleTrait;
 use Yii;
 use yii\base\Module;
 
@@ -12,7 +12,7 @@ use yii\base\Module;
  * @package app\modules\references
  */
 class ReferencesModule extends Module {
-	use ModuleExtended;
+	use ModuleTrait;
 
 	/**
 	 * {@inheritDoc}

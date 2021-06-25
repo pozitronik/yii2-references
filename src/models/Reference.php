@@ -4,9 +4,9 @@ declare(strict_types = 1);
 
 namespace pozitronik\references\models;
 
-use pozitronik\core\helpers\ModuleHelper;
-use pozitronik\core\traits\ARExtended;
-use pozitronik\core\traits\ModuleExtended;
+use pozitronik\helpers\ModuleHelper;
+use pozitronik\traits\traits\ActiveRecordTrait;
+use pozitronik\traits\traits\ModuleTrait;
 use yii\base\Module;
 use yii\caching\TagDependency;
 use yii\data\DataProviderInterface;
@@ -43,7 +43,7 @@ use RuntimeException;
  *
  */
 class Reference extends ActiveRecord implements ReferenceInterface {
-	use ARExtended;
+	use ActiveRecordTrait;
 
 	public string $menuCaption = "Справочник";
 	/*	Массив, перечисляющий имена атрибутов, которые должны отдаваться в dataOptions
@@ -156,7 +156,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 */
 	private function getViewPath(string $viewName):string {
 		$file_path = mb_strtolower($this->formName())."/{$viewName}.php";
-		/** @var ModuleExtended $module */
+		/** @var ModuleTrait $module */
 		if (null !== $module = ReferenceLoader::getReferenceByClassName($this->formName())->module) {//это справочник расширения
 			$form_alias = $module->alias.'/views/references/'.$file_path;
 			if (file_exists(Yii::getAlias($form_alias))) return $form_alias;

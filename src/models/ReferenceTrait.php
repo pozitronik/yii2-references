@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace pozitronik\references\models;
 
-use pozitronik\core\helpers\ModuleHelper;
+use pozitronik\helpers\ModuleHelper;
 use pozitronik\helpers\ArrayHelper;
 use Throwable;
 use Yii;
