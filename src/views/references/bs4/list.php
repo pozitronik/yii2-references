@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUndefinedNamespaceInspection */
 declare(strict_types = 1);
 
 use kartik\grid\GridView;
