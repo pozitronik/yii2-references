@@ -325,8 +325,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 * @inheritDoc
 	 */
 	public function createRecord(?array $data):?bool {
-		$this->load($data, '');
-		return ($this->save());
+		return ($this->load($data, '') && $this->save());
 	}
 
 	/**
