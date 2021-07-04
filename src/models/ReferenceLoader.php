@@ -24,6 +24,7 @@ class ReferenceLoader extends Model {
 	use ReferenceTrait;
 
 	public const REFERENCES_DIRECTORY = '@app/models/references';//можно задать массивом алиасов
+	public const INCLUDE_MODULES = false;//true - все, false - ни одного, массив - перечисленные
 
 	/**
 	 * @return ReferenceInterface[]
@@ -43,8 +44,11 @@ class ReferenceLoader extends Model {
 		} else {
 			$baseReferences = self::allDirReferences($baseReferencesDir);
 		}
+		$moduleReferences = [];
+		if (false !== $includeModules = ArrayHelper::getValue(Yii::$app->modules, 'references.params.includeModules', self::INCLUDE_MODULES)) {
+			$moduleReferences = self::GetAllReferences((true === $includeModules)?null:$includeModules);//загрузить модульные модели референсов
+		}
 
-		$moduleReferences = self::GetAllReferences();//загрузить модульные модели референсов
 		return array_merge($baseReferences, $moduleReferences);
 	}
 

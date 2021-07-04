@@ -18,7 +18,7 @@ trait ReferenceTrait {
 
 	/**
 	 * Возвращает массив моделей справочников, подключаемых в конфигурации модуля, либо одну модель (при задании $referenceClassName)
-	 * @param string $moduleId id плагина
+	 * @param string $moduleId id модуля
 	 * @param null|string Имя класса загружаемого справочника
 	 * @return ReferenceInterface[]|ReferenceInterface|null
 	 * @throws InvalidConfigException
@@ -51,19 +51,20 @@ trait ReferenceTrait {
 	}
 
 	/**
-	 * Возвращает массив справочников, подключаемых в конфигурациях плагинов
+	 * Возвращает массив справочников, подключаемых в конфигурациях модулей
+	 * @param string[]|null $whiteList Массив с перечислением имён модулей, в которых нужно искать справочники, null - искать во всех
 	 * @return ReferenceInterface[]
 	 * @throws InvalidConfigException
 	 * @throws Throwable
 	 */
-	public static function GetAllReferences():array {
+	public static function GetAllReferences(?array $whiteList = null):array {
 		$result = [];
-		foreach (ModuleHelper::ListModules() as $modules) {
+		foreach (ModuleHelper::ListModules($whiteList) as $module) {
 			/** @var array $references */
-			if (null !== $references = ArrayHelper::getValue($modules->params, 'references')) {
+			if (null !== $references = ArrayHelper::getValue($module->params, 'references')) {
 				foreach ($references as $reference) {
 					$referenceObject = Yii::createObject($reference);
-					$referenceObject->moduleId = $modules->id;
+					$referenceObject->moduleId = $module->id;
 					$result[$referenceObject->formName()] = $referenceObject;
 				}
 			}
