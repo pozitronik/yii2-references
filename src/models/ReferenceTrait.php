@@ -8,7 +8,6 @@ use pozitronik\helpers\ArrayHelper;
 use Throwable;
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\base\Model;
 
 /**
  * Trait ReferenceTrait
@@ -20,34 +19,24 @@ trait ReferenceTrait {
 	 * Возвращает массив моделей справочников, подключаемых в конфигурации модуля, либо одну модель (при задании $referenceClassName)
 	 * @param string $moduleId id модуля
 	 * @param null|string Имя класса загружаемого справочника
-	 * @return ReferenceInterface[]|ReferenceInterface|null
+	 * @return ReferenceInterface[]
 	 * @throws InvalidConfigException
 	 * @throws Throwable
 	 */
-	public static function GetReferences(string $moduleId, ?string $referenceClassName = null) {
-		/** @var array $references */
-		if ((null !== $module = ModuleHelper::GetModuleById($moduleId)) && null !== $references = ArrayHelper::getValue($module->params, 'references')) {
-			if (null === $referenceClassName) {//вернуть массив со всеми справочниками
-				$result = [];
+	public static function GetReferences(string $moduleId, ?string $referenceClassName = null):array {
+		$result = [];
+		$includedReferencePath = null === $referenceClassName?'params.references':"params.references.{$referenceClassName}";
+		$allModules = array_filter(ArrayHelper::getColumn(ModuleHelper::ListModules([$moduleId], false), $includedReferencePath));
 
-				foreach ($references as $reference) {
-					$referenceObject = Yii::createObject($reference);
-					$referenceObject->moduleId = $module->id;
-					$result[] = $referenceObject;
-				}
-				return $result;
-			}
-
+		foreach ($allModules as $moduleName => $references) {
+			/** @var array $references */
 			foreach ($references as $reference) {
-				/** @var ReferenceInterface|Model $referenceObject */
 				$referenceObject = Yii::createObject($reference);
-				if ($referenceClassName === $referenceObject->formName()) {
-					$referenceObject->moduleId = $module->id;
-					return $referenceObject;
-				}
+				$referenceObject->moduleId = $moduleName;
+				$result[$referenceObject->formName()] = $referenceObject;
 			}
 		}
-		return null;
+		return $result;
 	}
 
 	/**
