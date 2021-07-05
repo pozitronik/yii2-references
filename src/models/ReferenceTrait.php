@@ -26,13 +26,13 @@ trait ReferenceTrait {
 	 */
 	public static function GetReferences(string $moduleId, ?string $referenceClassName = null) {
 		/** @var array $references */
-		if ((null !== $modules = ModuleHelper::GetModuleById($moduleId)) && null !== $references = ArrayHelper::getValue($modules->params, 'references')) {
+		if ((null !== $module = ModuleHelper::GetModuleById($moduleId)) && null !== $references = ArrayHelper::getValue($module->params, 'references')) {
 			if (null === $referenceClassName) {//вернуть массив со всеми справочниками
 				$result = [];
 
 				foreach ($references as $reference) {
 					$referenceObject = Yii::createObject($reference);
-					$referenceObject->moduleId = $modules->id;
+					$referenceObject->moduleId = $module->id;
 					$result[] = $referenceObject;
 				}
 				return $result;
@@ -42,7 +42,7 @@ trait ReferenceTrait {
 				/** @var ReferenceInterface|Model $referenceObject */
 				$referenceObject = Yii::createObject($reference);
 				if ($referenceClassName === $referenceObject->formName()) {
-					$referenceObject->moduleId = $modules->id;
+					$referenceObject->moduleId = $module->id;
 					return $referenceObject;
 				}
 			}
