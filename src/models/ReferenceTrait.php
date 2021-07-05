@@ -59,14 +59,13 @@ trait ReferenceTrait {
 	 */
 	public static function GetAllReferences(?array $whiteList = null):array {
 		$result = [];
-		foreach (ModuleHelper::ListModules($whiteList) as $module) {
+		$allModules = array_filter(ArrayHelper::getColumn(ModuleHelper::ListModules($whiteList, false), 'params.references'));
+		foreach ($allModules as $moduleName => $references) {
 			/** @var array $references */
-			if (null !== $references = ArrayHelper::getValue($module->params, 'references')) {
-				foreach ($references as $reference) {
-					$referenceObject = Yii::createObject($reference);
-					$referenceObject->moduleId = $module->id;
-					$result[$referenceObject->formName()] = $referenceObject;
-				}
+			foreach ($references as $reference) {
+				$referenceObject = Yii::createObject($reference);
+				$referenceObject->moduleId = $moduleName;
+				$result[$referenceObject->formName()] = $referenceObject;
 			}
 		}
 		return $result;
