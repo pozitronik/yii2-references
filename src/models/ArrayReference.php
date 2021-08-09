@@ -14,7 +14,6 @@ use yii\base\Model;
 use yii\base\Module;
 use yii\data\ArrayDataProvider;
 use yii\data\DataProviderInterface;
-use yii\db\ActiveQuery;
 
 /**
  * Class ArrayReference
@@ -199,8 +198,9 @@ class ArrayReference extends Model implements ReferenceInterface {
 
 	/**
 	 * @inheritDoc
+	 * @return null|self[]
 	 */
-	public function search(array $params):?ActiveQuery {
+	public function search(array $params):?array {
 		return null;
 	}
 

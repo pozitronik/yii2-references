@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace pozitronik\references\models;
 
 use yii\data\DataProviderInterface;
-use yii\db\ActiveQuery;
 
 /**
  * Интерфейс справочника
@@ -75,9 +74,9 @@ interface ReferenceInterface {
 	 * Поиск по справочнику
 	 * null, если не поддерживается
 	 * @param array $params
-	 * @return null|ActiveQuery
+	 * @return null|mixed
 	 */
-	public function search(array $params):?ActiveQuery;
+	public function search(array $params);
 
 	/**
 	 * Правила сортировки в поиске по справочнику, null - не предусмотрено
