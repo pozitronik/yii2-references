@@ -338,7 +338,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	/**
 	 * @inheritDoc
 	 */
-	public static function getRecord(int $id):?ReferenceInterface {
+	public static function getRecord(int $id):?self {
 		return self::findOne($id);
 	}
 

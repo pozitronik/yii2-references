@@ -45,7 +45,7 @@ class ArrayReference extends Model implements ReferenceInterface {
 	/**
 	 * @inheritDoc
 	 */
-	public static function getRecord(int $id):?ReferenceInterface {
+	public static function getRecord(int $id):?self {
 		$model = new static(['id' => $id]);
 		if (null === $data = ArrayHelper::getValue($model->items, $id)) return null;
 		$model->load((array)$data, '');

@@ -135,7 +135,7 @@ interface ReferenceInterface {
 	 * @param int $id
 	 * @return ReferenceInterface|null
 	 */
-	public static function getRecord(int $id):?ReferenceInterface;
+	public static function getRecord(int $id):?self;
 
 	/**
 	 * @see Model::formName()
