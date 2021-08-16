@@ -25,8 +25,8 @@ class CustomisableReferenceMigration extends Migration {
 			'deleted' => $this->boolean()->notNull()->defaultValue(false)
 		]);
 
-		$this->createIndex('deleted', $this->table_name, 'deleted');
-		$this->createIndex('name', $this->table_name, 'name');
+		$this->createIndex($this->table_name.'_deleted', $this->table_name, 'deleted');
+		$this->createIndex($this->table_name.'_name', $this->table_name, 'name');
 	}
 
 	/**
