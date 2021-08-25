@@ -155,8 +155,11 @@ class CustomisableReference extends Reference {
 	public function getStyle():string {
 		$id = $this->id;
 		return Yii::$app->cache->getOrSet(static::class."::getStyle{$this->id}", static function() use ($id) {
-			$styleArray = self::find()->select(new Expression('CONCAT ("background: " , IFNULL(color, "gray"), "; color: ", IFNULL(textcolor, "white")) AS style'))->asArray()->where(['id' => $id])->one();
-			return $styleArray['style'];
+			$styleArray = self::find()->select(['textcolor', 'color'])->where(['id' => $id])->one();
+			return implode('; ', [
+				'background:'.(empty($styleArray->color)?'gray':$styleArray->color),
+				'color:'.(empty($styleArray->textcolor)?'white':$styleArray->textcolor)
+			]);
 		}, null, new TagDependency(['tags' => static::class."::getStyle{$this->id}"]));
 	}
 
