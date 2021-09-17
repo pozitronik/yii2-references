@@ -136,7 +136,7 @@ class ArrayReference extends Model implements ReferenceInterface {
 	 * @throws InvalidConfigException
 	 * @throws Throwable
 	 */
-	private function getViewPath(string $viewName):string {
+	protected function getViewPath(string $viewName):string {
 		$file_path = mb_strtolower($this->formName())."/{$viewName}.php";
 		/** @var ModuleTrait $module */
 		if (null !== $module = ReferenceLoader::getReferenceByClassName($this->formName())->module) {//это справочник расширения
