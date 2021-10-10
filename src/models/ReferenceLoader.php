@@ -45,9 +45,7 @@ class ReferenceLoader extends Model {
 		if ($baseReferencesDirs) {
 			$baseReferences = [[]];
 			foreach ($baseReferencesDirs as $referenceDir) {
-				if (!PathHelper::InPath($referenceDir, $excludeReferencesDirs)) {
-					$baseReferences[] = self::allDirReferences($referenceDir);
-				}
+				$baseReferences[] = self::allDirReferences($referenceDir, $excludeReferencesDirs);
 			}
 			$baseReferences = array_merge(...$baseReferences);
 		}
@@ -61,12 +59,13 @@ class ReferenceLoader extends Model {
 
 	/**
 	 * @param string $referencesDir
+	 * @param string[] $excludedPaths
 	 * @return ReferenceInterface[]
 	 * @throws ReflectionException
 	 * @throws Throwable
 	 * @throws UnknownClassException
 	 */
-	private static function allDirReferences(string $referencesDir):array {
+	private static function allDirReferences(string $referencesDir, array $excludedPaths):array {
 		$baseReferences = [];
 		if (false === $baseReferencesDir = Yii::getAlias($referencesDir, false)) return $baseReferences;
 
@@ -74,7 +73,9 @@ class ReferenceLoader extends Model {
 			$files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($baseReferencesDir), RecursiveIteratorIterator::SELF_FIRST);
 			/** @var RecursiveDirectoryIterator $file */
 			foreach ($files as $file) {
-				if ($file->isFile() && 'php' === $file->getExtension() && null !== $model = ReflectionHelper::LoadClassFromFile($file->getRealPath(), [ReferenceInterface::class], false)) {
+				if (!PathHelper::InPath($file->getPath(), $excludedPaths)
+					&& $file->isFile() && 'php' === $file->getExtension()
+					&& null !== $model = ReflectionHelper::LoadClassFromFile($file->getRealPath(), [ReferenceInterface::class], false)) {
 					$baseReferences[$model->formName()] = $model;
 				}
 			}
