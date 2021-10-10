@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace pozitronik\references\models;
 
 use pozitronik\helpers\ArrayHelper;
+use pozitronik\helpers\PathHelper;
 use pozitronik\helpers\ReflectionHelper;
 use ReflectionException;
 use Throwable;
@@ -24,6 +25,7 @@ class ReferenceLoader extends Model {
 	use ReferenceTrait;
 
 	public const REFERENCES_DIRECTORY = '@app/models/references';//можно задать массивом алиасов
+	public const EXCLUDE_DIRECTORY = [];//можно задать массивом алиасов
 	public const INCLUDE_MODULES = false;//true - все, false - ни одного, массив - перечисленные
 
 	/**
@@ -34,15 +36,20 @@ class ReferenceLoader extends Model {
 	 * @throws UnknownClassException
 	 */
 	public static function getList():array {
-		$baseReferencesDir = ArrayHelper::getValue(Yii::$app->modules, 'references.params.baseDir', self::REFERENCES_DIRECTORY);
-		if (is_array($baseReferencesDir)) {
+		$baseReferencesDirs = ArrayHelper::getValue(Yii::$app->modules, 'references.params.baseDir', self::REFERENCES_DIRECTORY);
+		$excludeReferencesDirs = ArrayHelper::getValue(Yii::$app->modules, 'references.params.excludeDir', self::EXCLUDE_DIRECTORY);
+		if (is_string($baseReferencesDirs)) $baseReferencesDirs = [$baseReferencesDirs];
+		if (is_string($excludeReferencesDirs)) $excludeReferencesDirs = [$excludeReferencesDirs];
+
+		$baseReferences = [];
+		if ($baseReferencesDirs) {
 			$baseReferences = [[]];
-			foreach ($baseReferencesDir as $referenceDir) {
-				$baseReferences[] = self::allDirReferences($referenceDir);
+			foreach ($baseReferencesDirs as $referenceDir) {
+				if (!PathHelper::InPath($referenceDir, $excludeReferencesDirs)) {
+					$baseReferences[] = self::allDirReferences($referenceDir);
+				}
 			}
 			$baseReferences = array_merge(...$baseReferences);
-		} else {
-			$baseReferences = self::allDirReferences($baseReferencesDir);
 		}
 		$moduleReferences = [];
 		if (false !== $includeModules = ArrayHelper::getValue(Yii::$app->modules, 'references.params.includeModules', self::INCLUDE_MODULES)) {
