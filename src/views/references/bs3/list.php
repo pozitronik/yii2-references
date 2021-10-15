@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
 					'format' => 'raw'
 				],
 				[
+					'attribute' => 'moduleId',
 					'label' => 'Модуль',
 					'value' => static function(ReferenceInterface $referenceModel) {
 						return $referenceModel->moduleId??'Базовый';

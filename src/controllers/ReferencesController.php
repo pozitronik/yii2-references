@@ -35,7 +35,17 @@ class ReferencesController extends Controller {
 	public function actionIndex(?string $class = null):string {
 		if (null === $class) {//list all reference models
 			$dataProvider = new ArrayDataProvider([
-				'allModels' => ReferenceLoader::getList()
+				'allModels' => ReferenceLoader::getList(),
+				'sort' => [
+					'defaultOrder' => [
+						'moduleId' => SORT_ASC,
+						'menuCaption' => SORT_ASC,
+					],
+					'attributes' => [
+						'moduleId',
+						'menuCaption'
+					]
+				]
 			]);
 			return $this->render('list', [
 				'dataProvider' => $dataProvider
