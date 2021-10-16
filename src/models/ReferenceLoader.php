@@ -54,9 +54,7 @@ class ReferenceLoader extends Model {
 			$moduleReferences = self::GetAllReferences((true === $includeModules)?null:$includeModules);//загрузить модульные модели референсов
 		}
 
-		$list = ArrayHelper::index(array_merge($baseReferences, $moduleReferences), 'menuCaption');
-		ksort($list);
-		return $list;
+		return array_merge($baseReferences, $moduleReferences);
 	}
 
 	/**
