@@ -1,4 +1,4 @@
-<?php /** @noinspection UndetectableTableInspection */
+<?php
 declare(strict_types = 1);
 
 namespace pozitronik\references\models;
