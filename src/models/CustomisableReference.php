@@ -15,12 +15,11 @@ use yii\helpers\Html;
 /**
  * Class CustomisableReference
  * Расширение класса справочника с поддержкой настроек отображения
- * @package app\modules\references\models
  *
- * @property null|string $color -- html code in rgb(r,g,b) format
- * @property string $textcolor -- css font options
+ * @property null|string $color html code in rgb(r,g,b) format
+ * @property string $textcolor css font options
  * @property-read null|string $font
- * @property-read string $style -- css style (combined font/background colors). It is preferred property, it work much faster!
+ * @property-read string $style css style (combined font/background colors). It is preferred property, it work much faster!
  */
 class CustomisableReference extends Reference {
 
