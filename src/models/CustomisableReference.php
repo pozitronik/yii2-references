@@ -10,7 +10,6 @@ use Throwable;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\caching\TagDependency;
-use yii\db\Expression;
 use yii\helpers\Html;
 
 /**
