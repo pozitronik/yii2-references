@@ -50,7 +50,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 		формата ['имя data-атрибута' => 'атрибут модели']
 	*/
 	protected array $_dataAttributes = [];
-	protected ?string $_moduleId;
+	protected ?string $_moduleId = null;
 
 	/**
 	 * @return string
