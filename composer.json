@@ -18,8 +18,8 @@
 	"prefer-stable": true,
 	"require": {
 		"php": ">=8.0",
-		"pozitronik/yii2-traits": "dev-dev",
-		"pozitronik/yii2-badgewidget": "dev-dev",
+		"pozitronik/yii2-traits": "dev-master",
+		"pozitronik/yii2-badgewidget": "dev-master",
 		"kartik-v/yii2-widget-colorinput": "dev-master",
 		"kartik-v/yii2-grid": "dev-master",
 		"kartik-v/yii2-widget-select2": "dev-master",
