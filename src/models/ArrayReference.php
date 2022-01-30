@@ -125,6 +125,9 @@ class ArrayReference extends Model implements ReferenceInterface {
 		];
 	}
 
+	/**
+	 * @return array
+	 */
 	public function getView_columns():array {
 		return $this->columns;
 	}

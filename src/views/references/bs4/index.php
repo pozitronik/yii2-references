@@ -1,6 +1,4 @@
 <?php
-/** @noinspection PhpUndefinedClassInspection */
-/** @noinspection PhpUndefinedNamespaceInspection */
 declare(strict_types = 1);
 
 use pozitronik\references\models\ReferenceInterface;

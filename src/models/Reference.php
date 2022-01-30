@@ -1,5 +1,4 @@
 <?php
-/** @noinspection UndetectableTableInspection */
 declare(strict_types = 1);
 
 namespace pozitronik\references\models;
@@ -28,8 +27,8 @@ use RuntimeException;
  * Справочник - стандартная шаблонная модель. Табличка обязательно имеет три поля int(id), (string)name, (bool)deleted
  * Правила и подписи стандартным полям заданы по умолчанию, при необходимости перекрываются при наследовании.
  * В таблице могут быть отдельные поля, тогда rules() и attributeLabels) также перекрываются при наследовании.
- * Для того, чтобы имя справочника везде корректно отображалось, нужно перекрыть геттер getRef_name().
- * Для того, чтобы задать в index/view свой набор полей, можно перекрыть геттеры getColumns()/getView_columns().
+ * Для того чтобы имя справочника везде корректно отображалось, нужно перекрыть геттер getRef_name().
+ * Для того чтобы задать в index/view свой набор полей, можно перекрыть геттеры getColumns()/getView_columns().
  * Если у справочника своя форма редактирования (например, с дополнительными полями), возвращаем путь к этой вьюхе в getForm().
  * Если форма лежит в @app/views/admin/references/{formName()}/_form.php, то она подтянется автоматически, так что это рекомендуемое расположение вьюх.
  *
@@ -51,7 +50,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 		формата ['имя data-атрибута' => 'атрибут модели']
 	*/
 	protected array $_dataAttributes = [];
-	protected ?string $_moduleId;
+	protected ?string $_moduleId = null;
 
 	/**
 	 * @return string
@@ -195,7 +194,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	 * @param array $params
 	 * @return ActiveQuery
 	 */
-	public function search(array $params):?ActiveQuery {
+	public function search(array $params):ActiveQuery {
 		$query = self::find();
 		$this->load($params);
 		$query->andFilterWhere(['LIKE', 'name', $this->name]);
@@ -228,7 +227,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 
 	/**
 	 * Количество объектов, использующих это значение справочника
-	 * @return int
+	 * @return null|int
 	 */
 	public function getUsedCount():?int {
 		return null;

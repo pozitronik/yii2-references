@@ -21,7 +21,7 @@ use yii\base\InvalidConfigException;
 class RefDepDrop extends DepDrop {
 
 	public const TYPE_REFERENCE_SELECT = 3;
-	public string $referenceClass;
+	public ?string $referenceClass;
 	public $type = self::TYPE_REFERENCE_SELECT;
 
 	/**
