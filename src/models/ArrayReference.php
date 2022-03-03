@@ -39,7 +39,7 @@ class ArrayReference extends Model implements ReferenceInterface {
 	public ?string $name = null;
 	public bool $deleted = false;
 
-	protected $_moduleId;
+    protected ?string $_moduleId = null;
 	private array $_models = [];
 
 	/**
