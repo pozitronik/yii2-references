@@ -36,9 +36,11 @@ $columns = array_merge($columns, $class->columns);
 ?>
 <div class="panel">
 	<div class="panel-heading">
-		<div class="panel-control">
-			<?= Html::a('Создать запись', ['create', 'class' => $class->formName()], ['class' => 'btn btn-success']) ?>
-		</div>
+		<?php if (!is_a($class, ArrayReference::class)): ?>
+			<div class="panel-control">
+				<?= Html::a('Создать запись', ['create', 'class' => $class->formName()], ['class' => 'btn btn-success']) ?>
+			</div>
+		<?php endif; ?>
 		<h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 	</div>
 	<div class="panel-body">
