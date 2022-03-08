@@ -5,6 +5,7 @@ namespace pozitronik\references\controllers;
 
 use pozitronik\helpers\BootstrapHelper;
 use pozitronik\references\models\ReferenceLoader;
+use pozitronik\references\ReferencesModule;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\data\ActiveDataProvider;
@@ -24,11 +25,13 @@ class ReferencesController extends Controller {
 	 * @inheritDoc
 	 */
 	public function getViewPath():string {
-		return parent::getViewPath().DIRECTORY_SEPARATOR.(BootstrapHelper::isBs4()?'bs4':'bs3');
+		return (null === $viewPath = ReferencesModule::param('viewPath'))
+			?parent::getViewPath().DIRECTORY_SEPARATOR.(BootstrapHelper::isBs4()?'bs4':'bs3')
+			:$viewPath;
 	}
 
 	/**
-	 * @param string|null $class имя класса справочника
+	 * @param string|null $class Имя класса справочника
 	 * @return string
 	 * @throws Throwable
 	 */
