@@ -6,6 +6,7 @@ namespace pozitronik\references\models;
 use pozitronik\helpers\ArrayHelper;
 use pozitronik\helpers\PathHelper;
 use pozitronik\helpers\ReflectionHelper;
+use pozitronik\references\ReferencesModule;
 use ReflectionException;
 use Throwable;
 use Yii;
@@ -36,8 +37,8 @@ class ReferenceLoader extends Model {
 	 * @throws UnknownClassException
 	 */
 	public static function getList():array {
-		$baseReferencesDirs = ArrayHelper::getValue(Yii::$app->modules, 'references.params.baseDir', self::REFERENCES_DIRECTORY);
-		$excludeReferencesDirs = ArrayHelper::getValue(Yii::$app->modules, 'references.params.excludeDir', self::EXCLUDE_DIRECTORY);
+		$baseReferencesDirs = ReferencesModule::param('baseDir', self::REFERENCES_DIRECTORY);
+		$excludeReferencesDirs = ReferencesModule::param('excludeDir', self::EXCLUDE_DIRECTORY);
 		if (is_string($baseReferencesDirs)) $baseReferencesDirs = [$baseReferencesDirs];
 		if (is_string($excludeReferencesDirs)) $excludeReferencesDirs = [$excludeReferencesDirs];
 
@@ -50,7 +51,7 @@ class ReferenceLoader extends Model {
 			$baseReferences = array_merge(...$baseReferences);
 		}
 		$moduleReferences = [];
-		if (false !== $includeModules = ArrayHelper::getValue(Yii::$app->modules, 'references.params.includeModules', self::INCLUDE_MODULES)) {
+		if (false !== $includeModules = ReferencesModule::param('includeModules', self::INCLUDE_MODULES)) {
 			$moduleReferences = self::GetAllReferences((true === $includeModules)?null:$includeModules);//загрузить модульные модели референсов
 		}
 
