@@ -1,6 +1,7 @@
 <?php
 declare(strict_types = 1);
 
+use pozitronik\references\models\ArrayReference;
 use pozitronik\references\models\ReferenceInterface;
 use pozitronik\references\ReferencesModule;
 use kartik\grid\GridView;
@@ -24,15 +25,9 @@ $columns[] = [
 	'class' => ActionColumn::class,
 	'template' => '{edit}{view}{delete}',
 	'buttons' => [
-		'edit' => static function(string $url, ReferenceInterface $model) use ($class) {
-			return Html::a('<i class="glyphicon glyphicon-edit"></i>', ReferencesModule::to(['references/update', 'id' => $model->id, 'class' => $class->formName()]));
-		},
-		'view' => static function(string $url, ReferenceInterface $model) use ($class) {
-			return Html::a('<i class="glyphicon glyphicon-eye-open"></i>', ReferencesModule::to(['references/view', 'id' => $model->id, 'class' => $class->formName()]));
-		},
-		'delete' => static function(string $url, ReferenceInterface $model) use ($class) {
-			return Html::a('<i class="glyphicon glyphicon-trash"></i>', ReferencesModule::to(['references/delete', 'id' => $model->id, 'class' => $class->formName()]));
-		},
+		'edit' => static fn(string $url, ReferenceInterface $model):?string => is_a($model, ArrayReference::class)?null:Html::a('<i class="glyphicon glyphicon-edit"></i>', ReferencesModule::to(['references/update', 'id' => $model->id, 'class' => $class->formName()])),
+		'view' => static fn(string $url, ReferenceInterface $model):string => Html::a('<i class="glyphicon glyphicon-eye-open"></i>', ReferencesModule::to(['references/view', 'id' => $model->id, 'class' => $class->formName()])),
+		'delete' => static fn(string $url, ReferenceInterface $model):?string => is_a($model, ArrayReference::class)?null:Html::a('<i class="glyphicon glyphicon-trash"></i>', ReferencesModule::to(['references/delete', 'id' => $model->id, 'class' => $class->formName()])),
 	],
 ];
 

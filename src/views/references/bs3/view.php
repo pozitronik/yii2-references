@@ -8,6 +8,7 @@ declare(strict_types = 1);
  * @var Reference $model
  */
 
+use pozitronik\references\models\ArrayReference;
 use pozitronik\references\ReferencesModule;
 use yii\data\ActiveDataProvider;
 use yii\web\View;
@@ -23,26 +24,28 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="panel">
 	<div class="panel-heading">
-		<div class="panel-control">
-			<div class="btn-group">
-				<?= Html::a(
-					'Изменить',
-					['update', 'id' => $model->id, 'class' => $model->formName()],
-					['class' => 'btn btn-primary']
-				) ?>
-				<?= Html::a(
-					'Удалить',
-					['delete', 'id' => $model->id, 'class' => $model->formName()],
-					[
-						'class' => 'btn btn-danger',
-						'data' => [
-							'confirm' => 'Вы действительно хотите удалить эту запись?',
-							'method' => 'post'
+		<?php if (!is_a($model, ArrayReference::class)): ?>
+			<div class="panel-control">
+				<div class="btn-group">
+					<?= Html::a(
+						'Изменить',
+						['update', 'id' => $model->id, 'class' => $model->formName()],
+						['class' => 'btn btn-primary']
+					) ?>
+					<?= Html::a(
+						'Удалить',
+						['delete', 'id' => $model->id, 'class' => $model->formName()],
+						[
+							'class' => 'btn btn-danger',
+							'data' => [
+								'confirm' => 'Вы действительно хотите удалить эту запись?',
+								'method' => 'post'
+							]
 						]
-					]
-				) ?>
+					) ?>
+				</div>
 			</div>
-		</div>
+		<?php endif; ?>
 		<h3 class="panel-title"><?= Html::encode($this->title) ?></h3>
 	</div>
 	<div class="panel-body">
