@@ -73,11 +73,11 @@ class ReferencesController extends Controller {
 
 	/**
 	 * @param string $class
-	 * @param int|string $id
+	 * @param mixed $id
 	 * @return string
 	 * @throws Throwable
 	 */
-	public function actionView(string $class, int|string $id):string {
+	public function actionView(string $class, mixed $id):string {
 		if (null === $model = ReferenceLoader::getReferenceByClassName($class)::getRecord($id)) throw new NotFoundHttpException();
 		return $this->render('view', [
 			'model' => $model
@@ -105,11 +105,11 @@ class ReferencesController extends Controller {
 
 	/**
 	 * @param string $class
-	 * @param int $id
+	 * @param mixed $id
 	 * @return null|string|Response
 	 * @throws Throwable
 	 */
-	public function actionUpdate(string $class, int|string $id) {
+	public function actionUpdate(string $class, mixed $id) {
 		if (null === $model = ReferenceLoader::getReferenceByClassName($class)::getRecord($id)) throw new NotFoundHttpException();
 		if (null === $model->createRecord(Yii::$app->request->post($model->formName()))) throw new MethodNotAllowedHttpException('Method not allowed for read-only models');
 
@@ -124,11 +124,11 @@ class ReferencesController extends Controller {
 
 	/**
 	 * @param string $class
-	 * @param int $id
+	 * @param mixed $id
 	 * @return Response
 	 * @throws Throwable
 	 */
-	public function actionDelete(string $class, int|string $id):Response {
+	public function actionDelete(string $class, mixed $id):Response {
 		if (null === $model = ReferenceLoader::getReferenceByClassName($class)::getRecord($id)) throw new NotFoundHttpException();
 		if (null === $model->deleteRecord()) throw new MethodNotAllowedHttpException('Method not allowed for read-only models');
 		return $this->redirect(['index', 'class' => $class]);
