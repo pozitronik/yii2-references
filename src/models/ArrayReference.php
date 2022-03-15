@@ -20,7 +20,7 @@ use yii\data\DataProviderInterface;
  * Read-only справочник, определяемый на уровне кода
  *
  * @property array $items Массив данных справочника в формате id => ['поле' => 'Значение']
- * @property-read int $id
+ * @property-read string|int $id
  * @property-read string $name
  * @property-read bool $deleted
  *
@@ -35,7 +35,7 @@ class ArrayReference extends Model implements ReferenceInterface {
 	 */
 	public array $items = [];
 
-	public ?int $id = null;
+	public string|int|null $id = null;
 	public ?string $name = null;
 	public bool $deleted = false;
 
@@ -45,7 +45,7 @@ class ArrayReference extends Model implements ReferenceInterface {
 	/**
 	 * @inheritDoc
 	 */
-	public static function getRecord(int $id):?self {
+	public static function getRecord(string|int $id):?self {
 		$model = new static(['id' => $id]);
 		if (null === $data = ArrayHelper::getValue($model->items, $id)) return null;
 		$model->load((array)$data, '');
@@ -70,7 +70,7 @@ class ArrayReference extends Model implements ReferenceInterface {
 	public function rules():array {
 		return [
 			[['name'], 'required'],
-			[['id'], 'integer'],
+			[['id'], 'safe'],
 			[['deleted'], 'boolean'],
 			[['name'], 'string', 'max' => 256]
 		];

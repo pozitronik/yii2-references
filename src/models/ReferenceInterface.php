@@ -132,10 +132,10 @@ interface ReferenceInterface {
 
 	/**
 	 * Вернуть запись по ключу, null, если такой записи нет
-	 * @param int $id
+	 * @param string|int $id
 	 * @return ReferenceInterface|null
 	 */
-	public static function getRecord(int $id):?self;
+	public static function getRecord(string|int $id):?self;
 
 	/**
 	 * @see Model::formName()

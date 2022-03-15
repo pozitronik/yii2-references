@@ -34,7 +34,7 @@ use RuntimeException;
  *
  * Получение данных из справочника для выбиралок делаем через mapData() (метод можно перекрывать по необходимости, см. Mcc)
  *
- *  @property int $usedCount Количество объектов, использующих это значение справочника
+ * @property int $usedCount Количество объектов, использующих это значение справочника
  * @property null|string $moduleId Плагин, подключающий расширение
  * @property null|Module $module
  *
@@ -335,7 +335,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 	/**
 	 * @inheritDoc
 	 */
-	public static function getRecord(int $id):?self {
+	public static function getRecord(string|int $id):?self {
 		return self::findOne($id);
 	}
 
