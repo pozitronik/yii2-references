@@ -73,11 +73,11 @@ class ReferencesController extends Controller {
 
 	/**
 	 * @param string $class
-	 * @param int $id
+	 * @param int|string $id
 	 * @return string
 	 * @throws Throwable
 	 */
-	public function actionView(string $class, int $id):string {
+	public function actionView(string $class, int|string $id):string {
 		if (null === $model = ReferenceLoader::getReferenceByClassName($class)::getRecord($id)) throw new NotFoundHttpException();
 		return $this->render('view', [
 			'model' => $model
@@ -109,7 +109,7 @@ class ReferencesController extends Controller {
 	 * @return null|string|Response
 	 * @throws Throwable
 	 */
-	public function actionUpdate(string $class, int $id) {
+	public function actionUpdate(string $class, int|string $id) {
 		if (null === $model = ReferenceLoader::getReferenceByClassName($class)::getRecord($id)) throw new NotFoundHttpException();
 		if (null === $model->createRecord(Yii::$app->request->post($model->formName()))) throw new MethodNotAllowedHttpException('Method not allowed for read-only models');
 
@@ -128,7 +128,7 @@ class ReferencesController extends Controller {
 	 * @return Response
 	 * @throws Throwable
 	 */
-	public function actionDelete(string $class, int $id):Response {
+	public function actionDelete(string $class, int|string $id):Response {
 		if (null === $model = ReferenceLoader::getReferenceByClassName($class)::getRecord($id)) throw new NotFoundHttpException();
 		if (null === $model->deleteRecord()) throw new MethodNotAllowedHttpException('Method not allowed for read-only models');
 		return $this->redirect(['index', 'class' => $class]);
