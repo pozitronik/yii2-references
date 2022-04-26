@@ -18,11 +18,16 @@ use yii\web\JsExpression;
  * Виджет-выбиралка для любых справочников. Добавляет к Select2 стандартное для справочников форматирование данных.
  *
  * @property string $referenceClass Модель справочника, к которой интегрируется виджет
- * @property bool $showEditAddon Включает кнопку перехода к редактированию справочника
+ * @property null|bool|callable $showEditAddon Включает кнопку перехода к редактированию справочника.
+ * null - взять из параметра конфигурации modules.references.select_widget.showEditAddon
+ * Если в параметр передано замыкание, то используется результат выполнения этого замыкания
  */
 class ReferenceSelectWidget extends Select2 {
 	public ?string $referenceClass;
-	public bool $showEditAddon = true;
+	/**
+	 * @var null|bool|callable
+	 */
+	public $showEditAddon;
 	private ?ReferenceInterface $_referenceModel = null;
 
 	/**
@@ -51,7 +56,7 @@ class ReferenceSelectWidget extends Select2 {
 			$this->pluginOptions['escapeMarkup'] = new JsExpression('function (markup) { return markup; }');
 			$this->data = $this->data??$this->_referenceModel::mapData();
 			$this->options['options'] = $this->_referenceModel::dataOptions();
-			if ($this->showEditAddon) {
+			if ($this->getShowEditAddon()) {
 				$this->addon = [
 					'append' => [
 						'content' => ReferencesModule::a($this->isBs(4)
@@ -64,5 +69,17 @@ class ReferenceSelectWidget extends Select2 {
 			}
 		}
 		return parent::run();
+	}
+
+	/**
+	 * @return bool
+	 * @throws InvalidConfigException
+	 * @throws Throwable
+	 */
+	private function getShowEditAddon():bool {
+		$this->showEditAddon ??= ReferencesModule::param('select_widget.showEditAddon', true);
+		return (is_callable($this->showEditAddon))
+			?call_user_func($this->showEditAddon)
+			:$this->showEditAddon;
 	}
 }
