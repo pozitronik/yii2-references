@@ -89,7 +89,7 @@ class Reference extends ActiveRecord implements ReferenceInterface {
 		return [
 			'id' => 'ID',
 			'name' => 'Название',
-			'deleted' => 'Удалёно',
+			'deleted' => 'Удалено',
 			'usedCount' => 'Использований'
 		];
 	}
