@@ -46,7 +46,7 @@ class CustomisableReference extends Reference {
 		return [
 			'id' => 'ID',
 			'name' => 'Название',
-			'deleted' => 'Удалёно',
+			'deleted' => 'Удалено',
 			'usedCount' => 'Использований',
 			'color' => 'Цвет фона',
 			'textcolor' => 'Цвет текста'
