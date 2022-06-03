@@ -20,10 +20,10 @@
 		"php": ">=8.0",
 		"pozitronik/yii2-traits": "^1.0.0",
 		"pozitronik/yii2-badgewidget": "^2.0.0",
-		"kartik-v/yii2-widget-colorinput": "dev-master",
-		"kartik-v/yii2-grid": "dev-master",
-		"kartik-v/yii2-widget-select2": "dev-master",
-		"kartik-v/yii2-widget-depdrop": "dev-master"
+		"kartik-v/yii2-widget-colorinput": "^1.0.6",
+		"kartik-v/yii2-grid": "^3.5.0",
+		"kartik-v/yii2-widget-select2": "^2.2.3",
+		"kartik-v/yii2-widget-depdrop": "^1.0.6"
 	},
 	"require-dev": {
 		"yiisoft/yii2": "dev-master",
