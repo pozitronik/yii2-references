@@ -21,6 +21,7 @@ use yii\data\DataProviderInterface;
  * @property-read null|array $searchSort
  * @property-read DataProviderInterface|null $dataProvider
  * @property null|string $moduleId id модуля, которому принадлежит справочник (null, если справочник базовый).
+ * @property string $menuCaption Заголовок меню, пробрасываемый в шаблоны
  */
 interface ReferenceInterface {
 
