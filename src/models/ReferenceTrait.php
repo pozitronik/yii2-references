@@ -18,7 +18,7 @@ trait ReferenceTrait {
 	/**
 	 * Возвращает массив моделей справочников, подключаемых в конфигурации модуля, либо одну модель (при задании $referenceClassName)
 	 * @param string $moduleId id модуля
-	 * @param null|string Имя класса загружаемого справочника
+	 * @param null|string $referenceClassName Имя класса загружаемого справочника
 	 * @return ReferenceInterface[]
 	 * @throws InvalidConfigException
 	 * @throws Throwable
