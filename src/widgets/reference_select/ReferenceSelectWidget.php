@@ -41,13 +41,13 @@ class ReferenceSelectWidget extends Select2 {
 
 	/**
 	 * Функция возврата результата рендеринга виджета
-	 * @return string|void
+	 * @return void
 	 * @throws InvalidConfigException
 	 * @throws ReflectionException
 	 * @throws Throwable
 	 * @throws UnknownClassException
 	 */
-	public function run() {
+	public function run():void {
 		if (true === ArrayHelper::getValue($this, 'pluginOptions.allowClear') && null === ArrayHelper::getValue($this, 'pluginOptions.placeholder')) $this->pluginOptions['placeholder'] = 'Выберите значение';
 
 		if (null !== $this->referenceClass) {
@@ -68,7 +68,7 @@ class ReferenceSelectWidget extends Select2 {
 				];
 			}
 		}
-		return parent::run();
+		parent::run();
 	}
 
 	/**

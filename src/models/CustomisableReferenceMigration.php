@@ -16,7 +16,7 @@ class CustomisableReferenceMigration extends Migration {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function safeUp() {
+	public function safeUp():void {
 		$this->createTable($this->table_name, [
 			'id' => $this->primaryKey(),
 			'name' => $this->string(255)->notNull(),
@@ -32,7 +32,7 @@ class CustomisableReferenceMigration extends Migration {
 	/**
 	 * {@inheritdoc}
 	 */
-	public function safeDown() {
+	public function safeDown():void {
 		$this->dropTable($this->table_name);
 	}
 }

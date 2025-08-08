@@ -27,7 +27,7 @@ class RefDepDrop extends DepDrop {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function run() {
+	public function run():void {
 		if (empty($this->pluginOptions['url'])) {
 			throw new InvalidConfigException("The 'pluginOptions[\"url\"]' property has not been set.");
 		}
